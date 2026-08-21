@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Hind+Siliguri:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400..700;1,400..700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="figma/fig-assets.css" />
+<style>
+  html { min-height: 100%; }
+  body { margin: 0; padding: 0; color: #1A1714; background: linear-gradient(165deg,#F7F3EC 0%,#EFE8DC 55%,#E3D9C7 100%) fixed; background-attachment: fixed; }
+  * { box-sizing: border-box; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: #C4522A; }
+  @keyframes glitch-a {
+    0%, 86% { opacity: 0; clip-path: inset(0 0 100% 0); transform: translateX(0); }
+    87% { opacity: .85; clip-path: inset(0 0 95% 0); transform: translateX(-3px); }
+    90% { opacity: .85; clip-path: inset(30% 0 50% 0); transform: translateX(3px); }
+    93% { opacity: .85; clip-path: inset(70% 0 10% 0); transform: translateX(-2px); }
+    96% { opacity: .85; clip-path: inset(10% 0 80% 0); transform: translateX(2px); }
+    99% { opacity: .85; clip-path: inset(50% 0 30% 0); transform: translateX(-3px); }
+    100% { opacity: 0; }
+  }
+  @keyframes glitch-b {
+    0%, 86% { opacity: 0; clip-path: inset(80% 0 5% 0); transform: translateX(0); }
+    87% { opacity: .85; clip-path: inset(80% 0 5% 0); transform: translateX(3px); }
+    90% { opacity: .85; clip-path: inset(10% 0 70% 0); transform: translateX(-3px); }
+    93% { opacity: .85; clip-path: inset(50% 0 20% 0); transform: translateX(2px); }
+    96% { opacity: .85; clip-path: inset(20% 0 60% 0); transform: translateX(-2px); }
+    99% { opacity: .85; clip-path: inset(65% 0 15% 0); transform: translateX(3px); }
+    100% { opacity: 0; }
+  }
+  .nav-kebab { display: none; }
+  @media (max-width: 768px) {
+    .nav-links { display: none !important; }
+    .nav-kebab { display: flex !important; }
+    .footer-nav-section { display: none !important; }
+  }
+</style>
+</helmet>
+
+<div style="background:transparent;min-height:100vh;font-family:'DM Sans',sans-serif;overflow-x:hidden">
+
+  <nav ref="{{ navRef }}" style="position:fixed;top:0;left:0;right:0;z-index:40;padding:16px clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid transparent;transition:background-color .25s ease,border-color .25s ease">
+    <a href="index.html" data-hover="" style="display:flex;align-items:baseline;gap:8px">
+      <span style="font-family:'Playfair Display',serif;font-weight:700;font-size:18px;color:#1A1714">debarashmi's portfolio</span>
+      <span style="font-family:'DM Sans',sans-serif;font-size:10px;color:#7A7469;text-transform:uppercase;letter-spacing:.16em">/ Designer</span>
+    </a>
+    <ul class="nav-links" style="display:flex;gap:32px;align-items:center;list-style:none;margin:0;padding:0">
+      <li><a href="Portfolio Home.dc.html#about" style="font-size:14px;color:#1A1714" data-hover="">About</a></li>
+      <li><a href="Portfolio Home.dc.html#work" style="font-size:14px;color:#1A1714" data-hover="">Work</a></li>
+      <li><a href="Portfolio Home.dc.html#testimonials" style="font-size:14px;color:#1A1714" data-hover="">Praise</a></li>
+      <li><a href="resume.html" style="font-size:14px;color:#1A1714" data-hover="">Resume</a></li>
+      <li><a href="Portfolio Home.dc.html#contact" style="font-size:14px;color:#1A1714" data-hover="">Contact</a></li>
+    </ul>
+    <button type="button" class="nav-kebab" onClick="{{ toggleMenu }}" aria-label="Menu" style="align-items:center;justify-content:center;width:36px;height:36px;background:transparent;border:1px solid rgba(26,23,20,0.15);cursor:pointer">
+      <span style="font-size:20px;line-height:1;color:#1A1714">⋮</span>
+    </button>
+  </nav>
+  <sc-if value="{{ mobileMenuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;top:57px;left:0;right:0;z-index:39;background:#F7F3EC;border-bottom:1px solid rgba(26,23,20,0.15);display:flex;flex-direction:column;padding:8px clamp(20px,4vw,48px) 16px">
+      <a href="Portfolio Home.dc.html#about" onClick="{{ closeMenu }}" style="padding:12px 0;font-size:15px;color:#1A1714;border-bottom:1px solid rgba(26,23,20,0.08)" data-hover="">About</a>
+      <a href="Portfolio Home.dc.html#work" onClick="{{ closeMenu }}" style="padding:12px 0;font-size:15px;color:#1A1714;border-bottom:1px solid rgba(26,23,20,0.08)" data-hover="">Work</a>
+      <a href="Portfolio Home.dc.html#testimonials" onClick="{{ closeMenu }}" style="padding:12px 0;font-size:15px;color:#1A1714;border-bottom:1px solid rgba(26,23,20,0.08)" data-hover="">Praise</a>
+      <a href="resume.html" onClick="{{ closeMenu }}" style="padding:12px 0;font-size:15px;color:#1A1714;border-bottom:1px solid rgba(26,23,20,0.08)" data-hover="">Resume</a>
+      <a href="Portfolio Home.dc.html#contact" onClick="{{ closeMenu }}" style="padding:12px 0;font-size:15px;color:#1A1714" data-hover="">Contact</a>
+    </div>
+  </sc-if>
+
+  <section style="position:relative;padding:clamp(160px,24vh,240px) clamp(20px,4vw,48px) 80px;border-bottom:1px solid rgba(26,23,20,0.15);overflow:hidden">
+    <div style="position:absolute;right:0;top:0;user-select:none;pointer-events:none;color:rgba(26,23,20,0.05);font-weight:700">
+      <span data-text="মূল্যায়ন" style="position:relative;display:block;font-family:'Hind Siliguri',sans-serif;font-size:14vw;line-height:1" style-before="content:attr(data-text);position:absolute;inset:0;color:#C4522A;opacity:0;white-space:pre;animation:glitch-a 4.6s steps(1) infinite" style-after="content:attr(data-text);position:absolute;inset:0;color:#2A5EA6;opacity:0;white-space:pre;animation:glitch-b 4.6s steps(1) infinite">মূল্যায়ন</span>
+    </div>
+    <div style="position:relative;z-index:2;max-width:720px;margin:0 auto">
+      <span style="font-family:'DM Sans',sans-serif;font-size:12px;color:#7A7469;text-transform:uppercase;letter-spacing:.16em;display:block;margin-bottom:20px">doselect (Naukri ecosystem) // UX Strategy</span>
+      <h1 style="font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(44px,8vw,84px);line-height:.95;color:#1A1714;margin:0 0 8px">ai assessment creation<span style="color:#C4522A">.</span></h1>
+      <span style="display:inline-flex;flex-direction:column;gap:.25em;line-height:1;font-size:18px;color:rgba(122,116,105,.85);margin-bottom:24px">
+        <span data-text="মূল্যায়ন সৃষ্টি" style="position:relative;display:inline-block;font-family:'Hind Siliguri',sans-serif" style-before="content:attr(data-text);position:absolute;inset:0;color:#C4522A;opacity:0;white-space:pre;animation:glitch-a 4.2s steps(1) infinite" style-after="content:attr(data-text);position:absolute;inset:0;color:#2A5EA6;opacity:0;white-space:pre;animation:glitch-b 4.2s steps(1) infinite">মূল্যায়ন সৃষ্টি</span>
+        <span style="font-size:.5em;letter-spacing:.18em;text-transform:uppercase;opacity:.6">Assessment Creation</span>
+      </span>
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:clamp(24px,3.4vw,36px);line-height:1.15;color:#585858;margin:16px 0 0">Designing Self Serve Intelligence for Assessment Creation</p>
+      <div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:32px;padding-top:32px;border-top:1px solid rgba(26,23,20,0.15)">
+        <div><p style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7A7469;margin:0 0 2px">Role</p><p style="font-size:14px;font-weight:500;color:#1A1714;margin:0">Lead UX Designer · UX Strategy</p></div>
+        <div><p style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7A7469;margin:0 0 2px">Company</p><p style="font-size:14px;font-weight:500;color:#1A1714;margin:0">Naukri.com / Doselect</p></div>
+        <div><p style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7A7469;margin:0 0 2px">Product</p><p style="font-size:14px;font-weight:500;color:#1A1714;margin:0">DoIQ Assessor</p></div>
+        <div><p style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7A7469;margin:0 0 2px">Tools</p><p style="font-size:14px;font-weight:500;color:#1A1714;margin:0">Figma · Jira</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="position:relative;padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px);overflow:hidden">
+    <div style="position:absolute;left:0;bottom:0;user-select:none;pointer-events:none;color:rgba(26,23,20,0.045);font-weight:700">
+      <span data-text="সমস্যা" style="position:relative;display:block;font-family:'Hind Siliguri',sans-serif;font-size:18vw;line-height:1" style-before="content:attr(data-text);position:absolute;inset:0;color:#C4522A;opacity:0;white-space:pre;animation:glitch-a 4.8s steps(1) infinite" style-after="content:attr(data-text);position:absolute;inset:0;color:#2A5EA6;opacity:0;white-space:pre;animation:glitch-b 4.8s steps(1) infinite">সমস্যা</span>
+    </div>
+    <div data-fade="" style="max-width:720px;margin:0 auto;position:relative;z-index:2;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(30px,4.6vw,52px);color:#1A1714;line-height:1.15;margin:0">why did this problem matter?<span style="color:#C4522A">.</span></h2>
+      <span style="display:inline-flex;flex-direction:column;gap:.25em;line-height:1;font-size:14px;color:rgba(122,116,105,.7);margin:8px 0 4px"><span style="font-family:'Hind Siliguri',sans-serif">সমস্যার মূল্য</span><span style="font-size:.7em;letter-spacing:.18em;text-transform:uppercase;opacity:.7">why it mattered</span></span>
+      <div style="margin-top:32px;font-size:17px;color:#7A7469;line-height:1.75;display:flex;flex-direction:column;gap:16px">
+        <p style="margin:0">DoSelect already had an assessments product backed by a large question library for both tech and non-tech roles. On paper, the system worked.</p>
+        <p style="margin:0">In reality, assessment creation depended heavily on a <strong style="font-weight:600;color:#1A1714">Content &amp; Delivery (C&amp;D) team</strong>, who collaborated with recruiters and hiring managers to manually curate tests.</p>
+        <p style="margin:0">This led to:</p>
+        <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px">
+          <li>Multiple back-and-forth cycles for every assessment</li>
+          <li>High turnaround time</li>
+          <li>Recruiter dependency on hiring managers for basic inputs</li>
+          <li>Lost customers because the system couldn't scale with demand</li>
+        </ul>
+        <p style="margin:0">Recruiters lacked the confidence and domain knowledge to create assessments on their own, making the experience slow, opaque, and operationally expensive.</p>
+        <p style="margin:0;font-weight:600;color:#1A1714">This wasn't just a UX problem — it was a scalability and automation problem.</p>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px)">
+    <div data-fade="" style="max-width:720px;margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(30px,4.6vw,52px);color:#1A1714;line-height:1.15;margin:0">what were we really trying to solve?<span style="color:#C4522A">.</span></h2>
+      <span style="display:inline-flex;flex-direction:column;gap:.25em;line-height:1;font-size:14px;color:rgba(122,116,105,.7);margin:8px 0 4px"><span style="font-family:'Hind Siliguri',sans-serif">লক্ষ্য</span><span style="font-size:.7em;letter-spacing:.18em;text-transform:uppercase;opacity:.7">the goal</span></span>
+      <div style="margin-top:32px;font-size:16px;color:#7A7469;line-height:1.75;display:flex;flex-direction:column;gap:16px">
+        <p style="margin:0">At its core, the challenge was to move DoSelect from a <strong style="font-weight:600;color:#1A1714">service-assisted workflow to a self-serve, AI-assisted experience</strong> — without sacrificing assessment quality.</p>
+        <p style="margin:0">We needed to answer a few hard questions:</p>
+        <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px">
+          <li>How do we reduce dependency on the Content &amp; Delivery team?</li>
+          <li>How do we help recruiters think through assessment creation without overwhelming them?</li>
+          <li>Where should AI assist, and where should humans stay in control?</li>
+          <li>How do we design trust into AI-generated content?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="position:relative;padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px);overflow:hidden">
+    <div style="position:absolute;left:0;bottom:0;user-select:none;pointer-events:none;color:rgba(26,23,20,0.045);font-weight:700">
+      <span data-text="পদ্ধতি" style="position:relative;display:block;font-family:'Hind Siliguri',sans-serif;font-size:16vw;line-height:1" style-before="content:attr(data-text);position:absolute;inset:0;color:#C4522A;opacity:0;white-space:pre;animation:glitch-a 5s steps(1) infinite" style-after="content:attr(data-text);position:absolute;inset:0;color:#2A5EA6;opacity:0;white-space:pre;animation:glitch-b 5s steps(1) infinite">পদ্ধতি</span>
+    </div>
+    <div data-fade="" style="max-width:720px;margin:0 auto;position:relative;z-index:2;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(30px,4.6vw,52px);color:#1A1714;line-height:1.15;margin:0">how did we approach the process?<span style="color:#C4522A">.</span></h2>
+      <span style="display:inline-flex;flex-direction:column;gap:.25em;line-height:1;font-size:14px;color:rgba(122,116,105,.7);margin:8px 0 4px"><span style="font-family:'Hind Siliguri',sans-serif">প্রক্রিয়া</span><span style="font-size:.7em;letter-spacing:.18em;text-transform:uppercase;opacity:.7">process</span></span>
+      <div style="margin-top:32px;font-size:16px;color:#7A7469;line-height:1.75;display:flex;flex-direction:column;gap:16px">
+        <p style="margin:0">This project required deep collaboration across Product, Engineering, and Content teams. My role focused on <strong style="font-weight:600;color:#1A1714">UX strategy and system design, not just screens.</strong></p>
+        <p style="margin:0">Design process highlights:</p>
+        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px">
+          <li style="display:flex;gap:12px"><span style="color:#C4522A;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Kicked off with PMs to review existing research, workflows, and experience gaps</span></li>
+          <li style="display:flex;gap:12px"><span style="color:#C4522A;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Identified scope boundaries and design risks early</span></li>
+          <li style="display:flex;gap:12px"><span style="color:#C4522A;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Shared early decision frameworks with the Content &amp; Delivery team and iterated frequently</span></li>
+          <li style="display:flex;gap:12px"><span style="color:#C4522A;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Presented direction and mental models to leadership — not just UI</span></li>
+          <li style="display:flex;gap:12px"><span style="color:#C4522A;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Finalized flows, documentation, and handoff</span></li>
+          <li style="display:flex;gap:12px"><span style="color:#C4522A;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Desk-checked production builds</span></li>
+          <li style="display:flex;gap:12px"><span style="color:#C4522A;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Reviewed post-launch usage and feedback</span></li>
+        </ul>
+        <p style="margin:0">This project evolved in public, with continuous iteration rather than a single "big reveal."</p>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px);background:#1A1714;color:#FFFFFF">
+    <div data-fade="" style="max-width:720px;margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(28px,4.2vw,46px);line-height:1.15;margin:0">forms or conversations — how should recruiters create assessments<span style="color:#C4522A">?</span></h2>
+      <span style="display:inline-flex;flex-direction:column;gap:.25em;line-height:1;font-size:14px;color:rgba(255,255,255,.4);margin:8px 0 24px"><span style="font-family:'Hind Siliguri',sans-serif">সিদ্ধান্ত</span><span style="font-size:.7em;letter-spacing:.18em;text-transform:uppercase">the decision</span></span>
+      <div style="font-size:16px;color:rgba(255,255,255,.7);line-height:1.75;display:flex;flex-direction:column;gap:16px">
+        <p style="margin:0">Early exploration narrowed down to two possible directions: a structured, form-heavy flow, or a chatbot-based, conversational flow.</p>
+        <p style="margin:0"><strong style="color:#FFFFFF">We chose the chatbot approach.</strong> Because recruiters don't think in rigid fields — they think in context, intent, and trade-offs. A conversational interface allowed us to:</p>
+        <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px">
+          <li>Capture inputs incrementally</li>
+          <li>Reduce cognitive load</li>
+          <li>Avoid the feeling of "filling yet another form"</li>
+          <li>Feed richer context into the AI system</li>
+        </ul>
+        <p style="margin:0">This decision became foundational to DoIQ's UX and AI strategy.</p>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px)">
+    <div data-fade="" style="max-width:720px;margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <span style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C4522A">Iteration 01</span>
+      <h2 style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(28px,4.2vw,46px);color:#1A1714;line-height:1.15;margin:8px 0 0">first iteration: library led automation<span style="color:#C4522A">.</span></h2>
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:24px;color:#585858;margin:20px 0 12px">First Conversation Flow</p>
+      <div style="border:1px solid rgba(26,23,20,0.15);border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(26,23,20,0.08)">
+        <img src="assets/assessment-first-flow.png" alt="First conversation flow for assessment creation" style="display:block;width:100%" />
+      </div>
+      <div style="margin-top:32px;font-size:16px;color:#7A7469;line-height:1.75;display:flex;flex-direction:column;gap:24px">
+        <div>
+          <p style="font-family:'Playfair Display',serif;font-weight:600;font-size:18px;color:#C4522A;margin:0 0 8px">process.</p>
+          <p style="margin:0">In response, the flow was simplified into a single-step conversational interface that asked recruiters for role name, years of experience, assessment duration, must-have skills and good-to-have skills. This felt intuitive and significantly reduced friction, but cracks appeared quickly once the system was used in real hiring scenarios.</p>
+        </div>
+        <div>
+          <p style="font-family:'Playfair Display',serif;font-weight:600;font-size:18px;color:#C4522A;margin:0 0 8px">early feedback.</p>
+          <p style="margin:0 0 12px">Feedback from recruiters and hiring managers revealed deeper issues:</p>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px">
+            <li>AI struggled to map question difficulty accurately to seniority</li>
+            <li>Library questions weren't reliable enough to stand alone</li>
+            <li>Skill inputs lacked depth — AI needed sub-topics, components, and responsibilities</li>
+            <li>Job responsibilities were missing, limiting contextual understanding</li>
+            <li>The assumption that recruiters were the sole persona was flawed; hiring managers still needed visibility and validation</li>
+          </ul>
+          <p style="margin:12px 0 0">The system demonstrated intelligence, but without sufficient contextual grounding, it couldn't be trusted to operate independently.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px)">
+    <div data-fade="" style="max-width:720px;margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <span style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C4522A">Iteration 02</span>
+      <h2 style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(28px,4.2vw,46px);color:#1A1714;line-height:1.15;margin:8px 0 0">second iteration: can structure improve intelligence?<span style="color:#C4522A">.</span></h2>
+      <div style="margin-top:32px;font-size:16px;color:#7A7469;line-height:1.75;display:flex;flex-direction:column;gap:24px">
+        <div>
+          <p style="margin:0 0 12px">We shifted strategy: instead of relying on the library alone, we asked recruiters for richer structure. This helped AI reason better about:</p>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px">
+            <li>Skill relevance</li>
+            <li>Question selection</li>
+            <li>Difficulty mapping</li>
+          </ul>
+          <p style="margin:12px 0 0">However, we created a new problem.</p>
+        </div>
+        <div style="border-left:2px solid #C4522A;padding-left:16px">
+          <p style="font-family:'Playfair Display',serif;font-weight:600;font-size:18px;color:#C4522A;margin:0 0 8px">what did we learn from the second iteration?</p>
+          <p style="margin:0 0 12px">The process worked — but at a cost.</p>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px">
+            <li>Recruiters found it too long and mentally taxing</li>
+            <li>Assessment timing wasn't factored early</li>
+            <li>Skill weightage wasn't adjustable</li>
+            <li>Question distribution felt opaque</li>
+            <li>There was no way to control question types (MCQ vs coding)</li>
+          </ul>
+          <p style="margin:12px 0 0;font-weight:600;color:#1A1714">We had optimized for AI accuracy, but compromised UX efficiency.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px)">
+    <div data-fade="" style="max-width:720px;margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <span style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C4522A">Iteration 03</span>
+      <h2 style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(28px,4.2vw,46px);color:#1A1714;line-height:1.15;margin:8px 0 0">third &amp; final iteration: how do we balance speed, control, and intelligence?<span style="color:#C4522A">.</span></h2>
+      <div style="margin-top:24px;font-size:16px;color:#7A7469;line-height:1.75;display:flex;flex-direction:column;gap:12px">
+        <p style="margin:0">The final direction reduced complexity while increasing clarity. The entire flow was condensed into three structured steps:</p>
+        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px">
+          <li style="display:flex;gap:12px"><span style="color:#C4522A;font-weight:700;flex-shrink:0">1.</span><span><strong style="font-weight:600;color:#1A1714">Upload job description</strong> — used as a reference, not a dependency</span></li>
+          <li style="display:flex;gap:12px"><span style="color:#C4522A;font-weight:700;flex-shrink:0">2.</span><span><strong style="font-weight:600;color:#1A1714">Confirm role and experience</strong> — helps AI reasoning and difficulty mapping</span></li>
+          <li style="display:flex;gap:12px"><span style="color:#C4522A;font-weight:700;flex-shrink:0">3.</span><span><strong style="font-weight:600;color:#1A1714">AI-assisted skill mapping table</strong> — this became the heart of the experience</span></li>
+        </ul>
+      </div>
+      <div ref="{{ stepperRef }}" style="margin-top:32px;border:1px solid rgba(26,23,20,0.15);border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(26,23,20,0.08);background:transparent">
+        <div style="position:relative;width:100%;aspect-ratio:1320 / 781;background:#F6EADC;overflow:hidden">
+          <img src="assets/assessment-step-1.png" alt="Step 1 — upload the job description in the DoIQ AI Assistant" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:opacity .55s ease,transform .8s cubic-bezier(.22,1,.36,1);opacity:{{ op1 }};transform:scale({{ sc1 }})" />
+          <img src="assets/assessment-step-2.png" alt="Step 2 — confirm job role and years of experience" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:opacity .55s ease,transform .8s cubic-bezier(.22,1,.36,1);opacity:{{ op2 }};transform:scale({{ sc2 }})" />
+          <img src="assets/assessment-step-3.png" alt="Step 3 — AI-assisted skill mapping table" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:opacity .55s ease,transform .8s cubic-bezier(.22,1,.36,1);opacity:{{ op3 }};transform:scale({{ sc3 }})" />
+          <img src="assets/assessment-step-4.png" alt="Step 4 — assessment ready, with composition summary and test overview" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:opacity .55s ease,transform .8s cubic-bezier(.22,1,.36,1);opacity:{{ op4 }};transform:scale({{ sc4 }})" />
+          <span style="position:absolute;top:14px;left:14px;font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:rgba(26,23,20,.72);padding:4px 10px;border-radius:999px">step {{ stepNo }} / 4</span>
+        </div>
+
+        <div style="display:flex;height:3px;background:#efeaff">
+          <div style="flex:1;background:#C4522A;transform-origin:left;transition:transform .4s ease;transform:scaleX({{ p1 }})"></div>
+          <div style="flex:1;background:#C4522A;transform-origin:left;transition:transform .4s ease;transform:scaleX({{ p2 }})"></div>
+          <div style="flex:1;background:#C4522A;transform-origin:left;transition:transform .4s ease;transform:scaleX({{ p3 }})"></div>
+          <div style="flex:1;background:#C4522A;transform-origin:left;transition:transform .4s ease;transform:scaleX({{ p4 }})"></div>
+        </div>
+
+        <div style="padding:20px;border-top:1px solid rgba(255,255,255,0.4);display:flex;flex-direction:column;gap:14px;background:rgba(255,255,255,0.35);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)">
+          <div style="min-height:92px">
+            <span style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#C4522A">{{ stepNo }}.</span>
+            <p style="font-family:'Playfair Display',serif;font-weight:600;font-size:17px;color:#1A1714;margin:4px 0 8px">{{ stepTitle }}</p>
+            <p style="font-size:14px;color:#7A7469;line-height:1.7;margin:0">{{ stepDesc }}</p>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button type="button" onClick="{{ go1 }}" data-hover="" style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border:1px solid rgba(26,23,20,0.15);background:{{ bg1 }};color:{{ fg1 }};cursor:pointer;border-radius:999px;transition:background-color .25s,color .25s">01 upload jd</button>
+            <button type="button" onClick="{{ go2 }}" data-hover="" style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border:1px solid rgba(26,23,20,0.15);background:{{ bg2 }};color:{{ fg2 }};cursor:pointer;border-radius:999px;transition:background-color .25s,color .25s">02 role &amp; experience</button>
+            <button type="button" onClick="{{ go3 }}" data-hover="" style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border:1px solid rgba(26,23,20,0.15);background:{{ bg3 }};color:{{ fg3 }};cursor:pointer;border-radius:999px;transition:background-color .25s,color .25s">03 skill table</button>
+            <button type="button" onClick="{{ go4 }}" data-hover="" style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border:1px solid rgba(26,23,20,0.15);background:{{ bg4 }};color:{{ fg4 }};cursor:pointer;border-radius:999px;transition:background-color .25s,color .25s">04 ready</button>
+          </div>
+        </div>
+      </div>
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:700;font-size:20px;color:#585858;margin:20px 0 0">&amp; Voila! Your assessment is ready to be taken.</p>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="position:relative;padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px);overflow:hidden">
+    <div style="position:absolute;right:0;bottom:0;user-select:none;pointer-events:none;color:rgba(26,23,20,0.045);font-weight:700">
+      <span data-text="সুযোগ" style="position:relative;display:block;font-family:'Hind Siliguri',sans-serif;font-size:16vw;line-height:1" style-before="content:attr(data-text);position:absolute;inset:0;color:#C4522A;opacity:0;white-space:pre;animation:glitch-a 4.4s steps(1) infinite" style-after="content:attr(data-text);position:absolute;inset:0;color:#2A5EA6;opacity:0;white-space:pre;animation:glitch-b 4.4s steps(1) infinite">সুযোগ</span>
+    </div>
+    <div data-fade="" style="max-width:720px;margin:0 auto;position:relative;z-index:2;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(30px,4.6vw,52px);color:#1A1714;line-height:1.15;margin:0">what unexpected opportunity did this unlock?<span style="color:#C4522A">.</span></h2>
+      <div style="margin-top:32px;font-size:16px;color:#7A7469;line-height:1.75;display:flex;flex-direction:column;gap:16px">
+        <p style="margin:0">While refining this system, we identified a new assessment type: <strong style="font-weight:600;color:#1A1714">Adaptive Assessments.</strong></p>
+        <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px">
+          <li>Each skill contains questions across difficulty levels</li>
+          <li>Candidates start with easier questions</li>
+          <li>AI dynamically adjusts difficulty based on responses</li>
+        </ul>
+        <p style="margin:0">This enables one assessment per role, more accurate skill measurement, and strong applicability in Learning &amp; Development use cases rather than recruitment.</p>
+        <p style="margin:0">This insight emerged directly from system-level UX thinking, not feature requests.</p>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px)">
+    <div data-fade="" style="max-width:720px;margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(30px,4.6vw,52px);color:#1A1714;line-height:1.15;margin:0">what was the impact?<span style="color:#C4522A">.</span></h2>
+      <span style="display:inline-flex;flex-direction:column;gap:.25em;line-height:1;font-size:14px;color:rgba(122,116,105,.7);margin:8px 0 4px"><span style="font-family:'Hind Siliguri',sans-serif">প্রভাব</span><span style="font-size:.7em;letter-spacing:.18em;text-transform:uppercase;opacity:.7">impact</span></span>
+      <div style="display:flex;flex-wrap:wrap;gap:32px;margin:32px 0">
+        <div style="border-left:1px solid rgba(26,23,20,0.15);padding-left:16px">
+          <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#1A1714">2500+</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:#7A7469;text-transform:uppercase;letter-spacing:.1em;margin-top:4px">tests created</div>
+        </div>
+        <div style="border-left:1px solid rgba(26,23,20,0.15);padding-left:16px">
+          <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#1A1714">412</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:#7A7469;text-transform:uppercase;letter-spacing:.1em;margin-top:4px">being used</div>
+        </div>
+        <div style="border-left:1px solid rgba(26,23,20,0.15);padding-left:16px">
+          <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#1A1714">20,539</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:#7A7469;text-transform:uppercase;letter-spacing:.1em;margin-top:4px">client questions</div>
+        </div>
+        <div style="border-left:1px solid rgba(26,23,20,0.15);padding-left:16px">
+          <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#1A1714">8,350</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:#7A7469;text-transform:uppercase;letter-spacing:.1em;margin-top:4px">internal questions</div>
+        </div>
+      </div>
+      <div style="font-size:16px;color:#7A7469;line-height:1.75;display:flex;flex-direction:column;gap:16px">
+        <p style="margin:0"><strong style="font-weight:600;color:#1A1714">Client accounts</strong> — 20,539 total questions · MCQs: 19,941 · Coding: 598</p>
+        <p style="margin:0"><strong style="font-weight:600;color:#1A1714">Internal accounts</strong> — 8,350 total questions · MCQs: 7,955 · Coding: 395</p>
+        <p style="margin:0">Internal teams began creating assessments independently using DoIQ Assessor, validating the self-serve vision.</p>
+        <p style="margin:0">Clients reported:</p>
+        <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px">
+          <li>Less need for question verification</li>
+          <li>Higher confidence in AI-generated assessments</li>
+          <li>Faster turnaround without C&amp;D dependency</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="position:relative;padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px);background:#1A1714;color:#FFFFFF;overflow:hidden">
+    <div style="position:absolute;right:0;bottom:0;user-select:none;pointer-events:none;color:rgba(255,255,255,0.05);font-weight:700">
+      <span data-text="শিক্ষা" style="position:relative;display:block;font-family:'Hind Siliguri',sans-serif;font-size:16vw;line-height:1" style-before="content:attr(data-text);position:absolute;inset:0;color:#C4522A;opacity:0;white-space:pre;animation:glitch-a 4.3s steps(1) infinite" style-after="content:attr(data-text);position:absolute;inset:0;color:#2A5EA6;opacity:0;white-space:pre;animation:glitch-b 4.3s steps(1) infinite">শিক্ষা</span>
+    </div>
+    <div data-fade="" style="max-width:720px;margin:0 auto;position:relative;z-index:2;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(30px,4.6vw,52px);line-height:1.15;margin:0">what did this project teach me<span style="color:#C4522A">?</span></h2>
+      <span style="display:inline-flex;flex-direction:column;gap:.25em;line-height:1;font-size:14px;color:rgba(255,255,255,.4);margin:8px 0 24px"><span style="font-family:'Hind Siliguri',sans-serif">শিক্ষা</span><span style="font-size:.7em;letter-spacing:.18em;text-transform:uppercase">learnings</span></span>
+      <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px">
+        <li style="display:flex;gap:12px"><span style="color:#C4522A;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span style="font-size:16px;color:rgba(255,255,255,.7);line-height:1.75">How deeply UX and AI systems are intertwined</span></li>
+        <li style="display:flex;gap:12px"><span style="color:#C4522A;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span style="font-size:16px;color:rgba(255,255,255,.7);line-height:1.75">How prompt design influences product outcomes</span></li>
+        <li style="display:flex;gap:12px"><span style="color:#C4522A;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span style="font-size:16px;color:rgba(255,255,255,.7);line-height:1.75">Why MVPs feel uncomfortable — but work</span></li>
+        <li style="display:flex;gap:12px"><span style="color:#C4522A;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span style="font-size:16px;color:rgba(255,255,255,.7);line-height:1.75">How to design for trust, explainability, and control in AI products</span></li>
+        <li style="display:flex;gap:12px"><span style="color:#C4522A;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span style="font-size:16px;color:rgba(255,255,255,.7);line-height:1.75">How self-serve UX drives adoption in B2B SaaS</span></li>
+      </ul>
+      <p style="font-size:17px;color:rgba(255,255,255,.7);line-height:1.75;margin:24px 0 0">Most importantly, it reinforced that good AI UX isn't about replacing humans — it's about <strong style="color:#FFFFFF">augmenting decision-making with clarity and confidence.</strong></p>
+    </div>
+  </section>
+
+  <section class="footer-nav-section" style="padding:64px clamp(20px,4vw,48px);border-top:1px solid rgba(26,23,20,0.15);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:32px">
+    <div>
+      <p style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7A7469;margin:0 0 12px">Back to portfolio</p>
+      <a href="index.html" data-hover="" style="display:inline-flex;align-items:center;gap:12px">
+        <span style="color:#C4522A;font-size:20px">←</span>
+        <span style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#1A1714">All work</span>
+      </a>
+    </div>
+    <div style="text-align:right">
+      <p style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7A7469;margin:0 0 4px">Next case study</p>
+      <a href="access-management-system.html" data-hover="" style="display:flex;align-items:center;justify-content:flex-end;gap:8px">
+        <span style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#1A1714">Doselect Access Management</span>
+        <span style="color:#C4522A;font-size:15px">↗︎</span>
+      </a>
+    </div>
+  </section>
+
+  <footer style="padding:24px clamp(20px,4vw,48px);border-top:1px solid rgba(26,23,20,0.15);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+    <span style="font-family:'Playfair Display',serif;font-weight:700;font-size:14px;color:#1A1714">Debarashmi Roy</span>
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-family:'DM Sans',sans-serif;font-size:10px;color:#7A7469;text-transform:uppercase;letter-spacing:.1em">Like what you see?</span>
+      <a href="mailto:debarashmiroy@gmail.com" style="font-size:13px;color:#1A1714">debarashmiroy@gmail.com</a>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+const STEPS = [
+  { title: "upload job description.", desc: "DoIQ greets the recruiter and asks for a JD — used as a reference, not a dependency. Upload it and the assistant starts processing." },
+  { title: "confirm role and experience.", desc: "A short inline form confirms job role and years of experience, which helps AI reasoning and difficulty mapping before questions are picked." },
+  { title: "ai-assisted skill mapping table.", desc: "The heart of the experience: skills, topics, difficulty, question types, counts and weightage — prefilled by AI, fully adjustable by the recruiter." },
+  { title: "your assessment is ready.", desc: "A composition summary and test overview confirm duration, responsibilities, must-have skills and type — one click through to the assessment." },
+];
+
+class Component extends DCLogic {
+  state = { figScale: 0.54, step: 0, mobileMenuOpen: false };
+  toggleMenu = () => this.setState((s) => ({ mobileMenuOpen: !s.mobileMenuOpen }));
+  closeMenu = () => this.setState({ mobileMenuOpen: false });
+
+  goTo(i) {
+    clearInterval(this.stepTimer);
+    this.setState({ step: i });
+    if (!this.stepPaused) this.startSteps();
+  }
+
+  startSteps() {
+    clearInterval(this.stepTimer);
+    this.stepTimer = setInterval(() => {
+      this.setState((s) => ({ step: (s.step + 1) % STEPS.length }));
+    }, 3600);
+  }
+
+  constructor(props) {
+    super(props);
+    this.navRef = React.createRef();
+    this.figBoxRef = React.createRef();
+    this.stepperRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.onScroll = () => {
+      const n = this.navRef.current;
+      if (!n) return;
+      const on = window.scrollY > 40;
+      n.style.backgroundColor = on ? "rgba(247,243,236,0.88)" : "transparent";
+      n.style.backdropFilter = on ? "blur(12px)" : "none";
+      n.style.borderBottomColor = on ? "rgba(26,23,20,0.1)" : "transparent";
+    };
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    this.onScroll();
+
+    const reveal = (el) => {
+      el.style.opacity = "1";
+      el.style.transform = "none";
+      el.dataset.fadeDone = "1";
+    };
+    this.check = () => {
+      const vh = window.innerHeight || 800;
+      document.querySelectorAll("[data-fade]").forEach((el) => {
+        if (el.dataset.fadeDone) return;
+        const r = el.getBoundingClientRect();
+        if (r.top < vh - 40 && r.bottom > 0) reveal(el);
+      });
+    };
+    this.onAnyScroll = () => {
+      if (this.rafId) return;
+      this.rafId = requestAnimationFrame(() => { this.rafId = null; this.check(); this.measure(); });
+    };
+    window.addEventListener("scroll", this.onAnyScroll, { passive: true, capture: true });
+    document.addEventListener("scroll", this.onAnyScroll, { passive: true, capture: true });
+    window.addEventListener("resize", this.onAnyScroll, { passive: true });
+    this.check();
+    this.checkTimer = setInterval(this.check, 300);
+    this.fallbackTimer = setTimeout(() => {
+      clearInterval(this.checkTimer);
+      document.querySelectorAll("[data-fade]").forEach(reveal);
+    }, 2500);
+
+    this.measure();
+    this.startSteps();
+    this.stepPaused = false;
+    setTimeout(() => {
+      const el = this.stepperRef.current;
+      if (el) {
+        el.addEventListener("mouseenter", () => { this.stepPaused = true; clearInterval(this.stepTimer); });
+        el.addEventListener("mouseleave", () => { this.stepPaused = false; this.startSteps(); });
+      }
+    }, 400);
+    this.measureTimer = setInterval(() => this.measure(), 500);
+    setTimeout(() => clearInterval(this.measureTimer), 6000);
+  }
+
+  measure() {
+    const box = this.figBoxRef.current;
+    const w = box ? box.clientWidth : 0;
+    if (!w) return;
+    const s = Math.min(1, w / 1328);
+    if (Math.abs(s - this.state.figScale) > 0.005) this.setState({ figScale: s });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.checkTimer);
+    clearInterval(this.measureTimer);
+    clearInterval(this.stepTimer);
+    clearTimeout(this.fallbackTimer);
+    window.removeEventListener("scroll", this.onScroll);
+    window.removeEventListener("scroll", this.onAnyScroll, { capture: true });
+    document.removeEventListener("scroll", this.onAnyScroll, { capture: true });
+    window.removeEventListener("resize", this.onAnyScroll);
+  }
+
+  renderVals() {
+    const s = this.state.figScale;
+    const i = this.state.step;
+    const st = STEPS[i];
+    const v = {
+      navRef: this.navRef,
+      mobileMenuOpen: this.state.mobileMenuOpen,
+      toggleMenu: this.toggleMenu,
+      closeMenu: this.closeMenu,
+      figBoxRef: this.figBoxRef,
+      figScale: s,
+      figHeight: Math.round(1512 * s) + "px",
+      stepperRef: this.stepperRef,
+      stepNo: i + 1,
+      stepTitle: st.title,
+      stepDesc: st.desc,
+    };
+    for (let n = 0; n < 4; n++) {
+      v["op" + (n + 1)] = n === i ? 1 : 0;
+      v["sc" + (n + 1)] = n === i ? 1 : 1.03;
+      v["p" + (n + 1)] = n <= i ? 1 : 0;
+      v["bg" + (n + 1)] = n === i ? "#C4522A" : "transparent";
+      v["fg" + (n + 1)] = n === i ? "#ffffff" : "#7A7469";
+      v["go" + (n + 1)] = ((k) => () => this.goTo(k))(n);
+    }
+    return v;
+  }
+}
+
+</script>
+</body>
+</html>
