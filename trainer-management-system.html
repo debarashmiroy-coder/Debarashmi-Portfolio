@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@400;500;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  html { min-height: 100%; }
+  body { margin: 0; padding: 0; color: #1A1714; background: linear-gradient(165deg,#F1F5EE 0%,#E4EDE0 55%,#D0E0C9 100%) fixed; background-attachment: fixed; }
+  * { box-sizing: border-box; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: #4C6B4F; }
+  @keyframes glitch-a {
+    0%, 86% { opacity: 0; clip-path: inset(0 0 100% 0); transform: translateX(0); }
+    87% { opacity: .85; clip-path: inset(0 0 95% 0); transform: translateX(-3px); }
+    90% { opacity: .85; clip-path: inset(30% 0 50% 0); transform: translateX(3px); }
+    93% { opacity: .85; clip-path: inset(70% 0 10% 0); transform: translateX(-2px); }
+    96% { opacity: .85; clip-path: inset(10% 0 80% 0); transform: translateX(2px); }
+    99% { opacity: .85; clip-path: inset(50% 0 30% 0); transform: translateX(-3px); }
+    100% { opacity: 0; }
+  }
+  @keyframes glitch-b {
+    0%, 86% { opacity: 0; clip-path: inset(80% 0 5% 0); transform: translateX(0); }
+    87% { opacity: .85; clip-path: inset(80% 0 5% 0); transform: translateX(3px); }
+    90% { opacity: .85; clip-path: inset(10% 0 70% 0); transform: translateX(-3px); }
+    93% { opacity: .85; clip-path: inset(50% 0 20% 0); transform: translateX(2px); }
+    96% { opacity: .85; clip-path: inset(20% 0 60% 0); transform: translateX(-2px); }
+    99% { opacity: .85; clip-path: inset(65% 0 15% 0); transform: translateX(3px); }
+    100% { opacity: 0; }
+  }
+  .nav-kebab { display: none; }
+  @media (max-width: 768px) {
+    .nav-links { display: none !important; }
+    .nav-kebab { display: flex !important; }
+    .footer-nav-section { display: none !important; }
+  }
+</style>
+</helmet>
+
+<div style="background:transparent;min-height:100vh;font-family:'DM Sans',sans-serif;overflow-x:hidden">
+
+  <nav ref="{{ navRef }}" style="position:fixed;top:0;left:0;right:0;z-index:40;padding:16px clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid transparent;transition:background-color .25s ease,border-color .25s ease">
+    <a href="index.html" data-hover="" style="display:flex;align-items:baseline;gap:8px">
+      <span style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:18px;color:#1A1714">debarashmi's portfolio</span>
+      <span style="font-family:'DM Sans',sans-serif;font-size:10px;color:#7A7469;text-transform:uppercase;letter-spacing:.16em">/ Designer</span>
+    </a>
+    <ul class="nav-links" style="display:flex;gap:32px;align-items:center;list-style:none;margin:0;padding:0">
+      <li><a href="Portfolio Home.dc.html#about" style="font-size:14px;color:#1A1714" data-hover="">About</a></li>
+      <li><a href="Portfolio Home.dc.html#work" style="font-size:14px;color:#1A1714" data-hover="">Work</a></li>
+      <li><a href="Portfolio Home.dc.html#testimonials" style="font-size:14px;color:#1A1714" data-hover="">Praise</a></li>
+      <li><a href="resume.html" style="font-size:14px;color:#1A1714" data-hover="">Resume</a></li>
+      <li><a href="Portfolio Home.dc.html#contact" style="font-size:14px;color:#1A1714" data-hover="">Contact</a></li>
+    </ul>
+    <button type="button" class="nav-kebab" onClick="{{ toggleMenu }}" aria-label="Menu" style="align-items:center;justify-content:center;width:36px;height:36px;background:transparent;border:1px solid rgba(26,23,20,0.15);cursor:pointer">
+      <span style="font-size:20px;line-height:1;color:#1A1714">⋮</span>
+    </button>
+  </nav>
+  <sc-if value="{{ mobileMenuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;top:57px;left:0;right:0;z-index:39;background:#F1F5EE;border-bottom:1px solid rgba(26,23,20,0.15);display:flex;flex-direction:column;padding:8px clamp(20px,4vw,48px) 16px">
+      <a href="Portfolio Home.dc.html#about" onClick="{{ closeMenu }}" style="padding:12px 0;font-size:15px;color:#1A1714;border-bottom:1px solid rgba(26,23,20,0.08)" data-hover="">About</a>
+      <a href="Portfolio Home.dc.html#work" onClick="{{ closeMenu }}" style="padding:12px 0;font-size:15px;color:#1A1714;border-bottom:1px solid rgba(26,23,20,0.08)" data-hover="">Work</a>
+      <a href="Portfolio Home.dc.html#testimonials" onClick="{{ closeMenu }}" style="padding:12px 0;font-size:15px;color:#1A1714;border-bottom:1px solid rgba(26,23,20,0.08)" data-hover="">Praise</a>
+      <a href="resume.html" onClick="{{ closeMenu }}" style="padding:12px 0;font-size:15px;color:#1A1714;border-bottom:1px solid rgba(26,23,20,0.08)" data-hover="">Resume</a>
+      <a href="Portfolio Home.dc.html#contact" onClick="{{ closeMenu }}" style="padding:12px 0;font-size:15px;color:#1A1714" data-hover="">Contact</a>
+    </div>
+  </sc-if>
+
+  <section style="position:relative;padding:clamp(160px,24vh,240px) clamp(20px,4vw,48px) 80px;border-bottom:1px solid rgba(26,23,20,0.15);overflow:hidden">
+    <div style="position:absolute;right:0;top:0;user-select:none;pointer-events:none;color:rgba(26,23,20,0.05);font-weight:700">
+      <span data-text="প্রশিক্ষক" style="position:relative;display:block;font-family:'Hind Siliguri',sans-serif;font-size:14vw;line-height:1" style-before="content:attr(data-text);position:absolute;inset:0;color:#4C6B4F;opacity:0;white-space:pre;animation:glitch-a 4.6s steps(1) infinite" style-after="content:attr(data-text);position:absolute;inset:0;color:#2A5EA6;opacity:0;white-space:pre;animation:glitch-b 4.6s steps(1) infinite">প্রশিক্ষক</span>
+    </div>
+    <div style="position:relative;z-index:2;max-width:var(--tms-col,720px);margin:0 auto">
+      <span style="font-family:'DM Sans',sans-serif;font-size:12px;color:#7A7469;text-transform:uppercase;letter-spacing:.16em;display:block;margin-bottom:20px">simplilearn // ux case study · 2022–2023</span>
+      <h1 style="font-family:'Arima Madurai',cursive;font-weight:900;font-size:clamp(42px,7.6vw,80px);line-height:.95;color:#1A1714;margin:0 0 8px">trainer management system<span style="color:#4C6B4F">.</span></h1>
+      <span style="display:inline-flex;flex-direction:column;gap:.25em;line-height:1;font-size:18px;color:rgba(122,116,105,.85);margin-bottom:24px">
+        <span data-text="প্রশিক্ষক ব্যবস্থাপনা" style="position:relative;display:inline-block;font-family:'Hind Siliguri',sans-serif" style-before="content:attr(data-text);position:absolute;inset:0;color:#4C6B4F;opacity:0;white-space:pre;animation:glitch-a 4.2s steps(1) infinite" style-after="content:attr(data-text);position:absolute;inset:0;color:#2A5EA6;opacity:0;white-space:pre;animation:glitch-b 4.2s steps(1) infinite">প্রশিক্ষক ব্যবস্থাপনা</span>
+        <span style="font-size:.5em;letter-spacing:.18em;text-transform:uppercase;opacity:.6">Trainer Management</span>
+      </span>
+      <p style="font-size:clamp(20px,2.6vw,26px);line-height:1.3;color:#4C6B4F;font-weight:500;margin:16px 0 0">on EngageX</p>
+      <div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:32px;padding-top:32px;border-top:1px solid rgba(26,23,20,0.15)">
+        <div><p style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7A7469;margin:0 0 2px">Role</p><p style="font-size:14px;font-weight:500;color:#1A1714;margin:0">UX Designer</p></div>
+        <div><p style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7A7469;margin:0 0 2px">Company</p><p style="font-size:14px;font-weight:500;color:#1A1714;margin:0">Simplilearn</p></div>
+        <div><p style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7A7469;margin:0 0 2px">Product</p><p style="font-size:14px;font-weight:500;color:#1A1714;margin:0">EngageX · Trainer Master DB</p></div>
+        <div><p style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7A7469;margin:0 0 2px">Timeline</p><p style="font-size:14px;font-weight:500;color:#1A1714;margin:0">2022 — 2023</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px)">
+    <div data-fade="" style="max-width:var(--tms-col,720px);margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(30px,4.6vw,52px);color:#1A1714;line-height:1.15;margin:0">what is EngageX?<span style="color:#4C6B4F">.</span></h2>
+      <span style="display:inline-flex;flex-direction:column;gap:.25em;line-height:1;font-size:14px;color:rgba(122,116,105,.7);margin:8px 0 4px"><span style="font-family:'Hind Siliguri',sans-serif">প্রেক্ষাপট</span><span style="font-size:.7em;letter-spacing:.18em;text-transform:uppercase;opacity:.7">context</span></span>
+      <div style="margin-top:32px;font-size:17px;color:#7A7469;line-height:1.75;display:flex;flex-direction:column;gap:16px">
+        <p style="margin:0">EngageX is a backend product developed by Simplilearn that is designed to streamline and optimize the operations of their Learning Management System. By carefully curating EngageX to become an intellectual property in the future, Simplilearn is likely aiming to establish a competitive advantage in the e-learning industry.</p>
+        <p style="margin:0">EngageX appears to provide a platform for managing and organizing classes and courses, as well as listing all stakeholders involved in these activities. By doing so, EngageX can help reduce waste in time, effort, and materials, thus improving the overall efficiency of Simplilearn's Learning Management System.</p>
+      </div>
+      <h3 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(24px,3.2vw,34px);color:#1A1714;line-height:1.2;margin:48px 0 0">what is Trainer Master DB?</h3>
+      <div style="margin-top:20px;font-size:16px;color:#7A7469;line-height:1.75;display:flex;flex-direction:column;gap:16px">
+        <p style="margin:0">Trainer Master DB is a document maintained by the "Faculty and Assignment" team at Simplilearn, which serves as a comprehensive listing of trainers available for teaching classes and courses that includes a range of information about each trainer, including their activity report, costing, and personal details.</p>
+        <p style="margin:0">The purpose of this document is to facilitate better alignment of trainers with classes and courses, based on the requirements of both business-to-consumer (B2C) and business-to-business (B2B) clients.</p>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="position:relative;padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px);overflow:hidden">
+    <div style="position:absolute;left:0;bottom:0;user-select:none;pointer-events:none;color:rgba(26,23,20,0.045);font-weight:700">
+      <span data-text="দল" style="position:relative;display:block;font-family:'Hind Siliguri',sans-serif;font-size:18vw;line-height:1" style-before="content:attr(data-text);position:absolute;inset:0;color:#4C6B4F;opacity:0;white-space:pre;animation:glitch-a 4.8s steps(1) infinite" style-after="content:attr(data-text);position:absolute;inset:0;color:#2A5EA6;opacity:0;white-space:pre;animation:glitch-b 4.8s steps(1) infinite">দল</span>
+    </div>
+    <div data-fade="" style="max-width:var(--tms-col,720px);margin:0 auto;position:relative;z-index:2;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(30px,4.6vw,52px);color:#1A1714;line-height:1.15;margin:0">responsible stakeholders<span style="color:#4C6B4F">.</span></h2>
+      <div style="margin-top:32px;border:1px solid rgba(26,23,20,0.15)">
+        <sc-for list="{{ teams }}" as="t" hint-placeholder-count="4">
+          <div style="padding:24px;border-bottom:1px solid rgba(26,23,20,0.15);background:rgba(255,255,255,.55)">
+            <p style="font-family:'Arima Madurai',cursive;font-weight:600;font-size:17px;color:#4C6B4F;margin:0 0 10px">{{ t.name }}</p>
+            <p style="font-size:15px;color:#7A7469;line-height:1.7;margin:0">{{ t.process }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px);background:#1A1714;color:#FFFFFF">
+    <div data-fade="" style="max-width:var(--tms-col,720px);margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(28px,4.2vw,46px);line-height:1.15;margin:0">user interviews &amp; question board<span style="color:#4C6B4F">.</span></h2>
+      <span style="display:inline-flex;flex-direction:column;gap:.25em;line-height:1;font-size:14px;color:rgba(255,255,255,.4);margin:8px 0 24px"><span style="font-family:'Hind Siliguri',sans-serif">গবেষণা</span><span style="font-size:.7em;letter-spacing:.18em;text-transform:uppercase">research</span></span>
+      <p style="font-size:16px;color:rgba(255,255,255,.7);line-height:1.75;margin:0 0 32px">We conducted thorough interviews with our stakeholders to get a view of how the work is done and how they take care of Trainer Master Database right now. We had a set of questions ready for our users so that we could help them guide and narrate through their issues and problems.</p>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <sc-for list="{{ questionGroups }}" as="g" hint-placeholder-count="4">
+          <div style="border:1px solid rgba(255,255,255,.15)">
+            <button type="button" onClick="{{ g.toggle }}" data-hover="" style="width:100%;text-align:left;background:transparent;border:none;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;font-family:'DM Sans',sans-serif">
+              <span style="font-size:16px;font-weight:500;color:#FFFFFF">{{ g.label }}</span>
+              <span style="font-family:'Arima Madurai',cursive;font-size:18px;color:#4C6B4F;line-height:1">{{ g.sign }}</span>
+            </button>
+            <div style="display:{{ g.display }};padding:0 20px 20px">
+              <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.7;color:rgba(255,255,255,.7)">
+                <sc-for list="{{ g.items }}" as="q" hint-placeholder-count="0">
+                  <li>{{ q }}</li>
+                </sc-for>
+              </ul>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px)">
+    <div data-fade="" style="max-width:var(--tms-col,720px);margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(28px,4.2vw,46px);color:#1A1714;line-height:1.15;margin:0">here's a view of the existing Trainer Master Database<span style="color:#4C6B4F">.</span></h2>
+      <div style="margin-top:32px;border:1px solid rgba(26,23,20,0.15);border-radius:12px;overflow:hidden;background:rgba(255,255,255,.55)">
+        <div ref="{{ dbScrollRef }}" style="overflow-x:auto">
+          <img src="assets/tms-master-db-full.png" alt="Existing Trainer Master Database spreadsheet — full column set" style="display:block;height:auto;min-width:1600px;width:100%" />
+        </div>
+      </div>
+      <p style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#7A7469;margin:10px 0 0">Auto-scrolls sideways — hover or drag to take over</p>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="position:relative;padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px);overflow:hidden">
+    <div style="position:absolute;right:0;bottom:0;user-select:none;pointer-events:none;color:rgba(26,23,20,0.045);font-weight:700">
+      <span data-text="সমস্যা" style="position:relative;display:block;font-family:'Hind Siliguri',sans-serif;font-size:16vw;line-height:1" style-before="content:attr(data-text);position:absolute;inset:0;color:#4C6B4F;opacity:0;white-space:pre;animation:glitch-a 5s steps(1) infinite" style-after="content:attr(data-text);position:absolute;inset:0;color:#2A5EA6;opacity:0;white-space:pre;animation:glitch-b 5s steps(1) infinite">সমস্যা</span>
+    </div>
+    <div data-fade="" style="max-width:var(--tms-col,720px);margin:0 auto;position:relative;z-index:2;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(30px,4.6vw,52px);color:#1A1714;line-height:1.15;margin:0">observations<span style="color:#4C6B4F">.</span></h2>
+      <div style="margin-top:32px;display:flex;flex-direction:column;gap:28px">
+        <sc-for list="{{ observations }}" as="o" hint-placeholder-count="7">
+          <div style="display:flex;gap:16px">
+            <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:#4C6B4F;padding-top:4px;flex-shrink:0">{{ o.no }}</span>
+            <div>
+              <p style="font-size:17px;font-weight:600;color:#1A1714;line-height:1.4;margin:0 0 8px">{{ o.title }}</p>
+              <p style="font-size:15px;color:#7A7469;line-height:1.75;margin:0">{{ o.body }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px)">
+    <div data-fade="" style="max-width:var(--tms-col,720px);margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(28px,4.2vw,46px);color:#1A1714;line-height:1.15;margin:0">important points to be considered<span style="color:#4C6B4F">.</span></h2>
+      <p style="font-size:16px;color:#4C6B4F;font-weight:500;line-height:1.6;margin:20px 0 0">After deep-diving we got to know, that there are a lot of points that were missed out on :</p>
+      <div style="margin-top:28px;display:flex;flex-direction:column;gap:24px">
+        <div style="border-left:2px solid #4C6B4F;padding-left:16px">
+          <p style="font-size:16px;font-weight:600;color:#1A1714;line-height:1.5;margin:0 0 10px">While choosing a trainer for a particular course, two things that take precedence over others is Availability &amp; Cost/hour.</p>
+          <p style="font-size:15px;color:#7A7469;line-height:1.75;margin:0">From a business perspective point of things, the biggest thing would be saving up on cost. So, be it a better trainer with better ratings, but if another trainer does not have much difference in performance and has lesser cost, they would be selecting the second trainer.</p>
+        </div>
+        <div style="border-left:2px solid #4C6B4F;padding-left:16px">
+          <p style="font-size:16px;font-weight:600;color:#1A1714;line-height:1.5;margin:0 0 10px">Contract is a big part that needs to be taken care of.</p>
+          <p style="font-size:15px;color:#7A7469;line-height:1.75;margin:0">For part time trainers, we give them Master Service Agreements. For full time trainers, we do not have to give them any MSA. The validity of the MSA needs to be taken care of. So that alignment team does not keep aligning trainers even after its validity ended.</p>
+        </div>
+        <div style="border-left:2px solid #4C6B4F;padding-left:16px">
+          <p style="font-size:16px;font-weight:600;color:#1A1714;line-height:1.5;margin:0 0 10px">There are different types of trainers in the system.</p>
+          <p style="font-size:15px;color:#7A7469;line-height:1.75;margin:0 0 12px">On the basis of activity of trainers, there are 4 types of trainers :</p>
+          <ul style="margin:0 0 16px;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:15px;color:#7A7469;line-height:1.7">
+            <li><strong style="font-weight:600;color:#1A1714">Active Trainers :</strong> Trainers who are in the system and taking current classes.</li>
+            <li><strong style="font-weight:600;color:#1A1714">Inactive Trainers :</strong> Trainers who are in the system and have taken a leave or leave Simplilearn. Alignment Team keeps them in the database to contact them whenever a new trainer is needed.</li>
+            <li><strong style="font-weight:600;color:#1A1714">To be Approved Trainers :</strong> Trainers who have registered themselves but have not been approved by the Alignment Team to take classes.</li>
+            <li><strong style="font-weight:600;color:#1A1714">Blacklisted Trainers :</strong> Trainers who have gone against rules and there have been escalations against them so they have been barred permanently. With special level of consideration from higher management, they can be the given the permission to be appointed as trainers again.</li>
+          </ul>
+          <p style="font-size:15px;color:#7A7469;line-height:1.75;margin:0 0 12px">On the basis of their performance, there are four types of Trainers :</p>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:15px;color:#7A7469;line-height:1.7">
+            <li><strong style="font-weight:600;color:#1A1714">Platinum Trainers :</strong> Trainer with 4.5+ Rating</li>
+            <li><strong style="font-weight:600;color:#1A1714">Gold Trainers :</strong> Trainer with 4.0–4.5 Rating</li>
+            <li><strong style="font-weight:600;color:#1A1714">Silver Trainers :</strong> Trainer with 3.5–4.0 Rating</li>
+            <li><strong style="font-weight:600;color:#1A1714">Bronze Trainers :</strong> Trainer with &gt;=3.5 Rating</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(22px,3vw,30px);color:#1A1714;line-height:1.2;margin:48px 0 0">changes made : tiering logic</h3>
+      <p style="font-size:15px;color:#7A7469;line-height:1.75;margin:16px 0 24px">We thought only Trainer Rating might not make sense, we would have to take consideration of the Session Ratings as well which were taken by the trainer and the most important factor of all, the standard deviation of both Trainer Rating &amp; Session Rating.</p>
+      <div style="border:1px solid rgba(26,23,20,0.15);overflow-x:auto">
+        <div style="min-width:560px">
+          <div style="display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr;background:#1A1714;color:#FFFFFF">
+          <span style="padding:12px;font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase">Parameter</span>
+          <span style="padding:12px;font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase">Trainer rating</span>
+          <span style="padding:12px;font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase">Session rating</span>
+          <span style="padding:12px;font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase">S.D.</span>
+        </div>
+        <sc-for list="{{ tiers }}" as="row" hint-placeholder-count="4">
+          <div style="display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr;border-top:1px solid rgba(26,23,20,0.12);background:rgba(255,255,255,.55)">
+            <span style="padding:14px 12px;font-size:14px;font-weight:600;color:#1A1714">{{ row.name }}</span>
+            <span style="padding:14px 12px;font-size:14px;color:#7A7469">{{ row.trainer }}</span>
+            <span style="padding:14px 12px;font-size:14px;color:#7A7469">{{ row.session }}</span>
+            <span style="padding:14px 12px;font-size:14px;color:#7A7469">{{ row.sd }}</span>
+          </div>
+        </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="position:relative;padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px);overflow:hidden">
+    <div style="position:absolute;left:0;bottom:0;user-select:none;pointer-events:none;color:rgba(26,23,20,0.045);font-weight:700">
+      <span data-text="প্রবাহ" style="position:relative;display:block;font-family:'Hind Siliguri',sans-serif;font-size:16vw;line-height:1" style-before="content:attr(data-text);position:absolute;inset:0;color:#4C6B4F;opacity:0;white-space:pre;animation:glitch-a 4.4s steps(1) infinite" style-after="content:attr(data-text);position:absolute;inset:0;color:#2A5EA6;opacity:0;white-space:pre;animation:glitch-b 4.4s steps(1) infinite">প্রবাহ</span>
+    </div>
+    <div data-fade="" style="max-width:var(--tms-col,720px);margin:0 auto;position:relative;z-index:2;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(28px,4.2vw,46px);color:#1A1714;line-height:1.15;margin:0">proposed flow for trainer onboarding &amp; alignment<span style="color:#4C6B4F">.</span></h2>
+      <p style="font-size:16px;color:#7A7469;line-height:1.75;margin:24px 0 0">The main part of this workflow was to get everything organised and segregate the task between Sourcing team and Alignment team and defining the work that needs to be done by both of the teams. The handover process from Sourcing team and Alignment were also discussed and made accordingly.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 0">
+        <span style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(26,23,20,0.15);padding:4px 10px;color:#7A7469">Alignment Team</span>
+        <span style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(26,23,20,0.15);padding:4px 10px;color:#7A7469">Sourcing Team</span>
+        <span style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(26,23,20,0.15);padding:4px 10px;color:#7A7469">Trainer</span>
+        <span style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(26,23,20,0.15);padding:4px 10px;color:#7A7469">Automation</span>
+      </div>
+      <div style="margin-top:28px;display:flex;flex-direction:column;gap:0">
+        <sc-for list="{{ flow }}" as="f" hint-placeholder-count="9">
+          <div style="display:flex;gap:16px;padding:16px 0;border-top:1px solid rgba(26,23,20,0.12)">
+            <span style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#4C6B4F;width:112px;flex-shrink:0;padding-top:3px">{{ f.owner }}</span>
+            <span style="font-size:15px;color:#7A7469;line-height:1.7">{{ f.text }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px)">
+    <div data-fade="" style="max-width:var(--tms-col,720px);margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(28px,4.2vw,46px);color:#1A1714;line-height:1.15;margin:0">metrics to be measured<span style="color:#4C6B4F">.</span></h2>
+      <div style="margin-top:32px;display:grid;grid-template-columns:1fr;gap:1px;border:1px solid rgba(26,23,20,0.15);background:rgba(26,23,20,0.12)">
+        <sc-for list="{{ metrics }}" as="m" hint-placeholder-count="4">
+          <div style="padding:24px;background:rgba(255,255,255,.55)">
+            <p style="font-family:'Arima Madurai',cursive;font-weight:600;font-size:16px;color:#4C6B4F;margin:0 0 12px">{{ m.team }}</p>
+            <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:14px;color:#7A7469;line-height:1.7">
+              <sc-for list="{{ m.items }}" as="mi" hint-placeholder-count="0">
+                <li>{{ mi }}</li>
+              </sc-for>
+            </ul>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px)">
+    <div data-fade="" style="max-width:var(--tms-col,720px);margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(28px,4.2vw,46px);color:#1A1714;line-height:1.15;margin:0">transformed this — to this<span style="color:#4C6B4F">.</span></h2>
+      <div ref="{{ taRef }}" style="margin-top:32px;border:1px solid rgba(26,23,20,0.15);border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(26,23,20,0.08);background:transparent" data-stepper="ta">
+        <div style="position:relative;width:100%;aspect-ratio:1225 / 711;background:#EAF0E6;overflow:hidden">
+          <img src="assets/tms-listing-old.png" alt="The old trainer listing in EngageX before the redesign" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:opacity .55s ease,transform .8s cubic-bezier(.22,1,.36,1);opacity:{{ ta1 }};transform:scale({{ tasc1 }})" />
+          <img src="assets/tms-listing-new.png" alt="The redesigned trainer list with types, ratings, MSA expiry and cost per hour" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:opacity .55s ease,transform .8s cubic-bezier(.22,1,.36,1);opacity:{{ ta2 }};transform:scale({{ tasc2 }})" />
+          <span style="position:absolute;top:14px;left:14px;font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:rgba(26,23,20,.72);padding:4px 10px;border-radius:999px">step {{ taStepNo }} / 2</span>
+        </div>
+        <div style="display:flex;height:3px;background:#EAF0E6">
+          <div style="flex:1;background:#4C6B4F;transform-origin:left;transition:transform .4s ease;transform:scaleX({{ tar1 }})"></div>
+          <div style="flex:1;background:#4C6B4F;transform-origin:left;transition:transform .4s ease;transform:scaleX({{ tar2 }})"></div>
+        </div>
+        <div style="padding:20px;border-top:1px solid rgba(255,255,255,0.4);display:flex;flex-direction:column;gap:14px;background:rgba(255,255,255,0.35);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)">
+          <div style="min-height:150px">
+            <span style="font-family:'Arima Madurai',cursive;font-size:16px;font-weight:700;color:#4C6B4F">{{ taStepNo }}.</span>
+            <p style="font-family:'Arima Madurai',cursive;font-weight:600;font-size:16px;color:#1A1714;margin:4px 0 8px">{{ taStepTitle }}</p>
+            <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;font-size:14px;color:#7A7469;line-height:1.7">
+              <sc-for list="{{ taStepItems }}" as="it" hint-placeholder-count="5">
+                <li>{{ it }}</li>
+              </sc-for>
+            </ul>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button type="button" onClick="{{ taGo1 }}" data-hover="" style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border:1px solid rgba(26,23,20,0.15);background:{{ tabg1 }};color:{{ tafg1 }};cursor:pointer;border-radius:999px;transition:background-color .25s,color .25s">01 the old database</button>
+            <button type="button" onClick="{{ taGo2 }}" data-hover="" style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border:1px solid rgba(26,23,20,0.15);background:{{ tabg2 }};color:{{ tafg2 }};cursor:pointer;border-radius:999px;transition:background-color .25s,color .25s">02 the new system</button>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(22px,3vw,30px);color:#1A1714;line-height:1.2;margin:48px 0 0">types of trainer profiles</h3>
+      <div ref="{{ ptRef }}" style="margin-top:20px;border:1px solid rgba(26,23,20,0.15);border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(26,23,20,0.08);background:transparent">
+        <div style="position:relative;width:100%;aspect-ratio:1281 / 720;background:#EAF0E6;overflow:hidden">
+          <img src="assets/tms-active-trainer-profile.png" alt="Active trainer profile" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:opacity .55s ease,transform .8s cubic-bezier(.22,1,.36,1);opacity:{{ pt1 }};transform:scale({{ ptsc1 }})" />
+          <img src="assets/tms-inactive-trainer-profile.png" alt="Inactive trainer profile" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:opacity .55s ease,transform .8s cubic-bezier(.22,1,.36,1);opacity:{{ pt2 }};transform:scale({{ ptsc2 }})" />
+          <img src="assets/tms-blacklisted-trainer-profile.png" alt="Blacklisted trainer profile" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:opacity .55s ease,transform .8s cubic-bezier(.22,1,.36,1);opacity:{{ pt3 }};transform:scale({{ ptsc3 }})" />
+          <span style="position:absolute;top:14px;left:14px;font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:rgba(26,23,20,.72);padding:4px 10px;border-radius:999px">step {{ ptStepNo }} / 3</span>
+        </div>
+        <div style="display:flex;height:3px;background:#efeaff">
+          <div style="flex:1;background:#4C6B4F;transform-origin:left;transition:transform .4s ease;transform:scaleX({{ ptr1 }})"></div>
+          <div style="flex:1;background:#4C6B4F;transform-origin:left;transition:transform .4s ease;transform:scaleX({{ ptr2 }})"></div>
+          <div style="flex:1;background:#4C6B4F;transform-origin:left;transition:transform .4s ease;transform:scaleX({{ ptr3 }})"></div>
+        </div>
+        <div style="padding:20px;border-top:1px solid rgba(255,255,255,0.4);display:flex;flex-direction:column;gap:14px;background:rgba(255,255,255,0.35);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)">
+          <div style="min-height:150px">
+            <span style="font-family:'Arima Madurai',cursive;font-size:16px;font-weight:700;color:#4C6B4F">{{ ptStepNo }}.</span>
+            <p style="font-family:'Arima Madurai',cursive;font-weight:600;font-size:16px;color:#1A1714;margin:4px 0 8px">{{ ptStepTitle }}</p>
+            <p style="font-size:14px;color:#7A7469;line-height:1.7;margin:0">{{ ptStepDesc }}</p>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button type="button" onClick="{{ ptGo1 }}" data-hover="" style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border:1px solid rgba(26,23,20,0.15);background:{{ ptbg1 }};color:{{ ptfg1 }};cursor:pointer;border-radius:999px;transition:background-color .25s,color .25s">01 active</button>
+            <button type="button" onClick="{{ ptGo2 }}" data-hover="" style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border:1px solid rgba(26,23,20,0.15);background:{{ ptbg2 }};color:{{ ptfg2 }};cursor:pointer;border-radius:999px;transition:background-color .25s,color .25s">02 inactive</button>
+            <button type="button" onClick="{{ ptGo3 }}" data-hover="" style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border:1px solid rgba(26,23,20,0.15);background:{{ ptbg3 }};color:{{ ptfg3 }};cursor:pointer;border-radius:999px;transition:background-color .25s,color .25s">03 blacklisted</button>
+          </div>
+        </div>
+      </div>
+      <h3 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(22px,3vw,30px);color:#1A1714;line-height:1.2;margin:48px 0 0">approval of to be approved trainer</h3>
+      <div ref="{{ apRef }}" style="margin-top:20px;border:1px solid rgba(26,23,20,0.15);border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(26,23,20,0.08);background:transparent">
+        <div style="position:relative;width:100%;aspect-ratio:1920 / 1080;background:#EAF0E6;overflow:hidden">
+          <img src="assets/tms-flow-b.png" alt="Trainer profile with Additional Details panel, before approval" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:opacity .55s ease,transform .8s cubic-bezier(.22,1,.36,1);opacity:{{ ap1 }};transform:scale({{ asc1 }})" />
+          <img src="assets/tms-approval-step1.png" alt="Approve Trainer modal — step 1 of 2, MSA and ABG details" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:opacity .55s ease,transform .8s cubic-bezier(.22,1,.36,1);opacity:{{ ap2 }};transform:scale({{ asc2 }})" />
+          <img src="assets/tms-approval-step2.png" alt="Approve Trainer modal — step 2 of 2, course assignment and cost" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;transition:opacity .55s ease,transform .8s cubic-bezier(.22,1,.36,1);opacity:{{ ap3 }};transform:scale({{ asc3 }})" />
+          <span style="position:absolute;top:14px;left:14px;font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:rgba(26,23,20,.72);padding:4px 10px;border-radius:999px">step {{ approvalStepNo }} / 3</span>
+        </div>
+        <div style="display:flex;height:3px;background:#efeaff">
+          <div style="flex:1;background:#4C6B4F;transform-origin:left;transition:transform .4s ease;transform:scaleX({{ apr1 }})"></div>
+          <div style="flex:1;background:#4C6B4F;transform-origin:left;transition:transform .4s ease;transform:scaleX({{ apr2 }})"></div>
+          <div style="flex:1;background:#4C6B4F;transform-origin:left;transition:transform .4s ease;transform:scaleX({{ apr3 }})"></div>
+        </div>
+        <div style="padding:20px;border-top:1px solid rgba(255,255,255,0.4);display:flex;flex-direction:column;gap:14px;background:rgba(255,255,255,0.35);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)">
+          <div style="min-height:56px">
+            <span style="font-family:'Arima Madurai',cursive;font-size:16px;font-weight:700;color:#4C6B4F">{{ approvalStepNo }}.</span>
+            <p style="font-family:'Arima Madurai',cursive;font-weight:600;font-size:16px;color:#1A1714;margin:4px 0 0">{{ approvalStepTitle }}</p>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button type="button" onClick="{{ approvalGo1 }}" data-hover="" style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border:1px solid rgba(26,23,20,0.15);background:{{ apbg1 }};color:{{ apfg1 }};cursor:pointer;border-radius:999px;transition:background-color .25s,color .25s">01 profile</button>
+            <button type="button" onClick="{{ approvalGo2 }}" data-hover="" style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border:1px solid rgba(26,23,20,0.15);background:{{ apbg2 }};color:{{ apfg2 }};cursor:pointer;border-radius:999px;transition:background-color .25s,color .25s">02 msa &amp; abg</button>
+            <button type="button" onClick="{{ approvalGo3 }}" data-hover="" style="font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border:1px solid rgba(26,23,20,0.15);background:{{ apbg3 }};color:{{ apfg3 }};cursor:pointer;border-radius:999px;transition:background-color .25s,color .25s">03 course &amp; cost</button>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:15px;color:#7A7469;line-height:1.75;margin:20px 0 0">Once the trainer profile is created, this whole form needs to be filled in by the Sourcing team to make the Trainer profile active. Clicking on the Approve Trainer button, the details for the trainer's association with Simplilearn comes up and a course needs to be assigned to the trainer for which he has been hired, to activate his profile so that he is qualified to take classes.</p>
+      <div style="margin-top:24px;display:flex;flex-direction:column;gap:16px">
+        <div><p style="font-size:15px;font-weight:600;color:#1A1714;margin:0 0 6px">Annual Business Guarantee</p><p style="font-size:15px;color:#7A7469;line-height:1.75;margin:0">For ABG Trainers, the cost entered would be the cost agreed on, for his tenure and it will be applicable for all the courses he will be assigned to.</p></div>
+        <div><p style="font-size:15px;font-weight:600;color:#1A1714;margin:0 0 6px">Vendored Trainer</p><p style="font-size:15px;color:#7A7469;line-height:1.75;margin:0">If the trainer has been sourced through a vendor, the vendor details need to be put in, so the payment process is done through the vendor and the cost/hr is not available to the trainers but to Operations team only.</p></div>
+        <div><p style="font-size:15px;font-weight:600;color:#1A1714;margin:0 0 6px">MSA Validity</p><p style="font-size:15px;color:#7A7469;line-height:1.75;margin:0">It is the validity of the contract made with the trainer, so that his costing remains the same for the tenure he is hired for.</p></div>
+        <div><p style="font-size:15px;font-weight:600;color:#1A1714;margin:0 0 6px">Full Time Trainer</p><p style="font-size:15px;color:#7A7469;line-height:1.75;margin:0">For full time trainer, no cost/hr needs to be added as the trainer would be a full time employee under Simplilearn's payroll.</p></div>
+      </div>
+
+      <h3 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(22px,3vw,30px);color:#1A1714;line-height:1.2;margin:48px 0 0">small details to be noted</h3>
+      <div style="margin-top:24px;display:flex;flex-direction:column;gap:8px">
+        <sc-for list="{{ details }}" as="d" hint-placeholder-count="6">
+          <div style="border:1px solid rgba(26,23,20,0.15)">
+            <button type="button" onClick="{{ d.toggle }}" data-hover="" style="width:100%;text-align:left;background:transparent;border:none;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;font-family:'DM Sans',sans-serif">
+              <span style="font-size:15px;font-weight:500;color:#1A1714">{{ d.q }}</span>
+              <span style="font-family:'Arima Madurai',cursive;font-size:18px;color:#4C6B4F;line-height:1">{{ d.sign }}</span>
+            </button>
+            <div style="display:{{ d.display }};padding:0 18px 18px">
+              <p style="font-size:14px;color:#7A7469;line-height:1.75;margin:0">{{ d.a }}</p>
+              <sc-if value="{{ d.img }}">
+                <div style="margin-top:14px;border:1px solid rgba(26,23,20,0.15);border-radius:10px;overflow:hidden">
+                  <img src="{{ d.img }}" alt="{{ d.q }}" style="display:block;width:100%" />
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="position:relative;padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px);background:#1A1714;color:#FFFFFF;overflow:hidden">
+    <div style="position:absolute;right:0;bottom:0;user-select:none;pointer-events:none;color:rgba(255,255,255,0.05);font-weight:700">
+      <span data-text="ফলাফল" style="position:relative;display:block;font-family:'Hind Siliguri',sans-serif;font-size:16vw;line-height:1" style-before="content:attr(data-text);position:absolute;inset:0;color:#4C6B4F;opacity:0;white-space:pre;animation:glitch-a 4.3s steps(1) infinite" style-after="content:attr(data-text);position:absolute;inset:0;color:#2A5EA6;opacity:0;white-space:pre;animation:glitch-b 4.3s steps(1) infinite">ফলাফল</span>
+    </div>
+    <div data-fade="" style="max-width:var(--tms-col,720px);margin:0 auto;position:relative;z-index:2;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(28px,4.2vw,46px);line-height:1.15;margin:0">project outcome<span style="color:#4C6B4F">.</span></h2>
+      <span style="display:inline-flex;flex-direction:column;gap:.25em;line-height:1;font-size:14px;color:rgba(255,255,255,.4);margin:8px 0 24px"><span style="font-family:'Hind Siliguri',sans-serif">ফলাফল</span><span style="font-size:.7em;letter-spacing:.18em;text-transform:uppercase">outcome</span></span>
+      <p style="font-family:'Arima Madurai',cursive;font-style:italic;font-size:clamp(19px,2.4vw,24px);line-height:1.4;margin:0 0 32px">"Overall data hygiene, sanity &amp; compliance."</p>
+      <div style="display:flex;flex-wrap:wrap;gap:32px;margin:0 0 32px">
+        <div style="border-left:1px solid rgba(255,255,255,.2);padding-left:16px">
+          <div style="font-family:'Arima Madurai',cursive;font-size:36px;font-weight:700">95.3%</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-top:4px">decrease — to be approved trainers, 172 → 8</div>
+        </div>
+        <div style="border-left:1px solid rgba(255,255,255,.2);padding-left:16px">
+          <div style="font-family:'Arima Madurai',cursive;font-size:36px;font-weight:700">4x</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-top:4px">blacklisted trainer pool, 2 → 8</div>
+        </div>
+        <div style="border-left:1px solid rgba(255,255,255,.2);padding-left:16px">
+          <div style="font-family:'Arima Madurai',cursive;font-size:36px;font-weight:700">1.92x</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-top:4px">inactive trainer listing, 1330 → 2561</div>
+        </div>
+      </div>
+      <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px">
+        <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span style="font-size:16px;color:rgba(255,255,255,.7);line-height:1.75">Removal of Sourcing Spreadsheet</span></li>
+        <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span style="font-size:16px;color:rgba(255,255,255,.7);line-height:1.75">Removal of Master database Spreadsheet</span></li>
+        <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span style="font-size:16px;color:rgba(255,255,255,.7);line-height:1.75">Reduction of Manhours by 0.3hrs/person during activating trainer profile as all information would be autofilled from Salesforce</span></li>
+        <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span style="font-size:16px;color:rgba(255,255,255,.7);line-height:1.75">Reduction of Manhours by 0.2hrs/person during assignment to courses</span></li>
+        <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span style="font-size:16px;color:rgba(255,255,255,.7);line-height:1.75">Easier auto-calculation of Expense Reports for ABG trainers</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px)">
+    <div data-fade="" style="max-width:var(--tms-col,720px);margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(28px,4.2vw,46px);color:#1A1714;line-height:1.15;margin:0">challenges &amp; key takeaways<span style="color:#4C6B4F">.</span></h2>
+      <span style="display:inline-flex;flex-direction:column;gap:.25em;line-height:1;font-size:14px;color:rgba(122,116,105,.7);margin:8px 0 4px"><span style="font-family:'Hind Siliguri',sans-serif">শিক্ষা</span><span style="font-size:.7em;letter-spacing:.18em;text-transform:uppercase;opacity:.7">learnings</span></span>
+      <div style="margin-top:32px;display:flex;flex-direction:column;gap:32px">
+        <div>
+          <p style="font-family:'Arima Madurai',cursive;font-weight:600;font-size:18px;color:#4C6B4F;margin:0 0 16px">challenges.</p>
+          <div style="font-size:15px;color:#7A7469;line-height:1.75;display:flex;flex-direction:column;gap:12px">
+            <p style="margin:0">Megacategory filter is something we never thought of, or we missed, which might have helped team wise segregation of trainers under a particular large category.</p>
+            <p style="margin:0">Program Type was not taken up as a filter, which might not help the Alignment team to segregate trainer listing according to the types of program they were selected for. For eg. B2B courses would only be given to people who have professional experience of more than 4 years and have already taken classes for our enterprise partners before.</p>
+            <p style="margin:0">There could have been an expanded view which would give all the course-wise details for a trainer in the listing page.</p>
+          </div>
+        </div>
+        <div>
+          <p style="font-family:'Arima Madurai',cursive;font-weight:600;font-size:18px;color:#4C6B4F;margin:0 0 16px">key takeaways.</p>
+          <div style="font-size:15px;color:#7A7469;line-height:1.75;display:flex;flex-direction:column;gap:12px">
+            <p style="margin:0"><strong style="font-weight:600;color:#1A1714">Stakeholder involvement and engagement is crucial</strong> — handling the task along with multiple stakeholders has led to a lot of confusion as the work was overlapping across teams.</p>
+            <p style="margin:0">A lot of discussions needed to be done in order to discover a lot of information leading to discovery of all the types of trainers that are present inside Simplilearn.</p>
+            <p style="margin:0"><strong style="font-weight:600;color:#1A1714">There are always 10 ways to do one job</strong> — understand what's important to your users, study the best practices, and sometimes trust your gut. Design is an iterative process — you could always go back to understand what went wrong and re-work on it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="footer-nav-section" style="padding:64px clamp(20px,4vw,48px);border-top:1px solid rgba(26,23,20,0.15);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:32px">
+    <div>
+      <p style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7A7469;margin:0 0 12px">Back to portfolio</p>
+      <a href="index.html" data-hover="" style="display:inline-flex;align-items:center;gap:12px">
+        <span style="color:#4C6B4F;font-size:20px">←</span>
+        <span style="font-family:'Arima Madurai',cursive;font-size:24px;font-weight:700;color:#1A1714">All work</span>
+      </a>
+    </div>
+    <div style="text-align:right">
+      <p style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7A7469;margin:0 0 4px">Previous case study</p>
+      <a href="live-chat-experience.html" data-hover="" style="display:flex;align-items:center;justify-content:flex-end;gap:8px">
+        <span style="font-family:'Arima Madurai',cursive;font-size:18px;font-weight:700;color:#1A1714">Live Chat Experience</span>
+        <span style="color:#4C6B4F;font-size:15px">↗︎</span>
+      </a>
+    </div>
+  </section>
+
+  <footer style="padding:24px clamp(20px,4vw,48px);border-top:1px solid rgba(26,23,20,0.15);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+    <span style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:14px;color:#1A1714">Debarashmi Roy</span>
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-family:'DM Sans',sans-serif;font-size:10px;color:#7A7469;text-transform:uppercase;letter-spacing:.1em">Like what you see?</span>
+      <a href="mailto:debarashmiroy@gmail.com" style="font-size:13px;color:#1A1714">debarashmiroy@gmail.com</a>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;contentWidth&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:720,&quot;min&quot;:600,&quot;max&quot;:1240,&quot;step&quot;:20,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Layout&quot;},&quot;dbScrollSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1.6,&quot;min&quot;:0,&quot;max&quot;:5,&quot;step&quot;:0.2,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Motion&quot;}}">
+const TEAMS = [
+  { name: "Alignment Team", process: "This process involves aligning trainers with classes based on requirements, sourcing trainers from various verticals, providing feedback data, generating expense orders, and consolidating invoice data for the finance team." },
+  { name: "Onboarding Team", process: "The process of onboarding trainers involves providing course access/ILT, conducting dry runs, providing feedback and ratings, and providing session-level assistance, such as session details and joining links. Trainers' communication and session capabilities are also checked during the dry runs." },
+  { name: "Learner's Success Team", process: "The process involves announcing the batch and aligning the trainer to the course in EngageX, sharing session details and joining links with the trainer, and collecting feedback and ratings. The team also provides assistance to trainers during sessions, cater to their queries, and note learners' issues and feedback." },
+  { name: "GSA Team", process: "The process involves providing enterprise product solutions to clients based on their requirements, sourcing trainers from the trainer repository or through the alignment team, and maintaining a trainer data pool for future requirements. The sales team is informed of any specific client requirements." },
+];
+
+const QUESTION_GROUPS = [
+  { label: "For Sourcing Team", items: ["What are the steps of sourcing trainer for a particular program? (Please explain in detail and share how the process is done)", "How do you get the requirements for the trainer? What's the way of communication to get the requirement?", "What are the steps the trainer needs to perform during sourcing?", "Is there a process of documentation for sourcing a trainer?", "Do we store the information of the trainers who were shortlisted but not onboarded?", "How do we measure efficiency/success of the sourcing team?"] },
+  { label: "For Alignment Team", items: ["Can you brief me about the step by step process of aligning a trainer?", "How the trainer is communicated for the alignment and what is the process after the trainer accepts?", "What are the tasks the trainer needs to complete during the alignment process?", "Is there any task which is repeated and can be removed from the alignment process?", "How the trainer generate payment invoices and how it is verified?", "What are the details required for payment invoices and verification? How do we measure efficiency/success of the Alignment team?"] },
+  { label: "For Onboarding Team", items: ["Can you help me understanding the process of onboarding and what are the necessary steps to be performed?", "What are the steps the trainer has to perform for onboarding?", "What all information is required from the trainer side for onboarding?", "How often you perform this task and how much time it takes to onboard a trainer?", "How do you document the entire process of onboarding?", "Do trainers leave in between onboarding process? If yes, how the process is done and what steps need to be performed from both trainer and FRG team?", "What are the documents required for onboarding? Which ones are mandatory and according to you what all be removed?", "Do you prioritize any task during onboarding? If yes then what it is and why it is important?"] },
+  { label: "For Head of Faculty & Alignment Team", items: ["What according to you is an Ideal TMS? and what is your long term view of a TMS?", "What are your top problems wrt getting trainers to SL?", "What is the trainer retention % today?", "Why do trainers leave us today and what are their top pain points?", "How is SL perceived by the trainers as against other platforms?", "What are top trainer needs and desires according to you? (life goals?)", "Trainer demographics?", "What are your top problem areas?"] },
+  { label: "For Trainers", items: ["Why did you choose to be a trainer?", "What are your goals behind becoming a trainer?", "Is this a full time or a part time job?", "If fulltime, do you work with other companies as well? If part time then what is your full time job? What are your primary reasons that make you stick to particular edtech company?", "How has your experience wrt Simplilearn?"] },
+];
+
+const OBSERVATIONS = [
+  { no: "01", title: "Lot of manual work and data entry which is time consuming in the entire process.", body: "The entire process is currently based on manual work from Sourcing to Alignment of trainers. Tasks are distributed at various level in the process and each task has to be done manually which consumes a lot of time." },
+  { no: "02", title: "Creating multiple spreadsheets and managing them is a hectic process.", body: "The entire process is dependant on multiple spreadsheets. All the data about the trainers, invoices, alignment, sourcing is managed on spreadsheets. Multiple spread sheets are created at different level in the process increases the effort of the user." },
+  { no: "03", title: "Repetition of data & tasks in the entire process.", body: "Due to manual work which is divided across multiple user groups, a lot of repetition of data occurs as similar information is used across the process for different tasks. It creates confusion and redundancy." },
+  { no: "04", title: "Manual copying of data creates redundancy, errors and loss of data.", body: "Due to creation of new spreadsheets for separate tasks, users have to manually copy the data from one sheet to another which increases the chance of human error, data loss and low efficiency." },
+  { no: "05", title: "Searching information through the pool of data reduces efficiency.", body: "Due to so many spreadsheets, searching of information is a huge task and takes a lot of time to go through the spreadsheets and finding the right information." },
+  { no: "06", title: "Shuffling through multiple platforms for different tasks impacts the time consumption of the entire process.", body: "As the process is divided between multiple teams, multiple platforms are used to achieve different tasks. It creates repetition of information & manual work which consumes more time and efforts." },
+  { no: "07", title: "Mail follow ups and calls with individuals creates confusion and affects the user attentiveness and efficiency.", body: "As there are multiple trainers, communicating through mail & call with each trainer is a time consuming effort. It creates lot of confusion amongst the user as they have to respond for each query and do follow ups, unable to do so affects the experience of trainers as well as the users." },
+];
+
+const TIERS = [
+  { name: "Platinum", trainer: ">/= 4.5", session: "</= 0.5", sd: "</= 0.5" },
+  { name: "Gold", trainer: ">/= 4", session: "</= 1", sd: "</= 1" },
+  { name: "Silver", trainer: "< 4", session: "> 1", sd: "> 1" },
+  { name: "Bronze", trainer: "< 3.7", session: "> 1", sd: "> 1" },
+];
+
+const FLOW = [
+  { owner: "Alignment Team", text: "Alignment team raises a request through salesforce platform to sourcing team for trainer regarding any specific course." },
+  { owner: "Sourcing Team", text: "The request raised by the alignment team is viewed by the sourcing team." },
+  { owner: "Sourcing Team", text: "Sourcing Team starts searching for leads according to the requirement raised by Alignment Team." },
+  { owner: "Sourcing Team", text: "When a trainer is selected after several rounds of Interview, they mark the SF requirement as closed and a MSA is made for them to sign." },
+  { owner: "Automation", text: "After the MSA is agreed upon, an automated mail is sent through SF asking Trainer to create his profile on EngageX." },
+  { owner: "Trainer", text: "Trainer creates his profile on EngageX." },
+  { owner: "Automation", text: "An automated mail is sent through EngageX to the sourcing team notifying them that the new trainer has created his profile." },
+  { owner: "Sourcing Team", text: "While approving the trainer, the Sourcing Team needs to fill in the location of the Trainer and all his contract details, defining the type as of Trainer." },
+  { owner: "Alignment Team", text: "After the profile has been moved to Active List, the responsibility moves under the radar of Alignment Team." },
+  { owner: "Alignment Team", text: "From now onwards, they can take a look at the Trainer listing and choose a trainer to be assigned to a particular course." },
+  { owner: "Alignment Team", text: "They can assign a course to the trainer by mentioning the cost agreed upon. If the Trainer is ABG, the cost does not need to be mentioned." },
+];
+
+const METRICS = [
+  { team: "Platform", items: ["% of Man Hours decreased — F&A", "Improved overall TAT for alignment", "Trainer onboarding SAT", "Trainer Overall Experience", "Platform CSAT", "Improved overall TAT for sourcing"] },
+  { team: "Sourcing Team", items: ["Number of trainers sourced per month — North star", "Conversion rate for each channel", "Per trainer budget", "TAT per request fulfilled", "Sourcing requests per month"] },
+  { team: "Onboarding Team", items: ["Number of trainers onboarded per month — North star", "TAT per trainer onboarded", "Trainer Onboarding CSAT"] },
+  { team: "Alignment Team", items: ["Trainer and Session SAT for each Mega Category — North star", "Alignment TAT", "Trainer Churn rate", "Optimised (Cost + rating) trainer alignment"] },
+];
+
+const DETAILS = [
+  { q: "What if you want to edit the cost of an ABG Trainer?", img: "assets/tms-edit-abg-cost.png", a: "When the trainer had been onboarded as an ABG Trainer, a fixed cost was put forward for him, whereas he will get a fix number of classes in a year and he comes in agreement with the company, that he will be charging a discounted rate. If the alignment team wants to edit the cost of an ABG trainer, they would be able to do that, but they would be notified about the ABG cost. Even if it is edited, the ABG cost would be put forward for courses." },
+  { q: "How do you show when the contract for the trainer is ending?", img: "assets/tms-msa-expiry-listing.png", a: "After a conversation and preparing a task flow of the processes involved in making a new MSA, we got to the confirmation stage that we should be notifying the alignment team under the list of active trainers at least 30 days in advance. So they can renew their contract in due time and keep them in the pool of active trainers without any disturbance in between." },
+  { q: "How to show the cost/hr of a trainer?", img: "assets/tms-cost-per-hr-tooltip.png", a: "Taking feasibility in mind, we have made a cost/hr column which would only be visible in case one course has been selected in filters clearly telling that to the users of EngageX. With our research solutions, multiple courses would have different cost. And putting forward all of the costs along with all of the courses might be too heavy for the users, hence we decided to come up with this solution." },
+  { q: "How to forward trainer profiles?", img: "assets/tms-forward-profile-menu.png", a: "Given GSA Team's requirement, there should be an easy way out for them to extract a CV of the trainer which they would be able to forward to the enterprise partners so that they can carefully take a look at their experience and choose the trainers they would want for their courses." },
+  { q: "What if you want to make a MSA expired trainer active?", img: "assets/tms-msa-expired-banner.png", a: "Once the tenure of Agreement & the contract is over for the trainer, the trainer would be automatically moved to the pool of inactive trainers. If you are trying to restore this particular trainer's profile as an active trainer, a toaster message would notify you about the situation and ask you to renew the contract and edit the new contract details." },
+  { q: "What if you want to search for trainers with criteria in mind?", img: "assets/tms-advanced-filters.png", a: "With advanced filters coming into the picture, we have made the work easy for the alignment team to search for a trainer with particular criteria in mind. This helps to maintain the data hygiene of the overall Trainer Master database." },
+];
+
+const APPROVAL_STEPS = [
+  { title: "The trainer's profile before approval, with the Additional Details panel." },
+  { title: "Trainer's geo, contract type, MSA and ABG details are captured." },
+  { title: "Course is assigned and the trainer's cost is confirmed." },
+];
+
+const TRANSFORM_STEPS = [
+  { title: "Con's — the old database", items: ["Lesser information about trainers", "Cost/hr is not documented", "Lesser criteria to select a trainer", "Type of Trainer is not validated", "No such gradation of trainers"] },
+  { title: "Pro's — the new system", items: ["More information about trainers", "Properly segregated types", "Proper ratings of trainers", "Trainer if active", "Cost/hr for better selection"] },
+];
+
+const PROFILE_TYPE_STEPS = [
+  { title: "Active Trainer", desc: "After a trainer is newly appointed, an automated mail is sent through SF asking the trainer to create his profile on EngageX. Once the profile is created, it looks like this, with all the additional details filled up taking up the place of courses & live classes under the trainer. The Sourcing Team has to approve the Trainer in order to make him an Active Trainer and only then the trainer can be assigned to courses and live classes." },
+  { title: "Inactive Trainer", desc: "A Trainer is moved to this only when they want to take a break from Simplilearn from some emergency. They are kept in the database, so they might be activated again, or this happens automatically when their contract with Simplilearn has ended. The Alignment team needs to renew their contract and update the details to make this particular trainer active." },
+  { title: "Blacklisted Trainer", desc: "If there has been some high end escalation towards a trainer's performance, so much so that that the Operations Team wants to bar him from taking any classes throughout, an active trainer/inactive trainer is moved to blacklisted list along with a proper reasoning. They are kept in the database, to prevent them from being onboarded again. Only if there are some high-end requests made from the upper management, the Trainers are made to be active. So the ability lies to only the Super Admin profile to make them active." },
+];
+
+class Component extends DCLogic {
+  state = { openQ: 0, openD: -1, approvalStep: 0, ptStep: 0, taStep: 0, mobileMenuOpen: false };
+  toggleMenu = () => this.setState((s) => ({ mobileMenuOpen: !s.mobileMenuOpen }));
+  closeMenu = () => this.setState({ mobileMenuOpen: false });
+
+  goToApproval(i) {
+    clearInterval(this.approvalTimer);
+    this.setState({ approvalStep: i });
+    if (!this.apPaused) this.startApproval();
+  }
+
+  startApproval() {
+    clearInterval(this.approvalTimer);
+    this.approvalTimer = setInterval(() => {
+      this.setState((s) => ({ approvalStep: (s.approvalStep + 1) % APPROVAL_STEPS.length }));
+    }, 3600);
+  }
+
+  goToPt(i) {
+    clearInterval(this.ptTimer);
+    this.setState({ ptStep: i });
+    if (!this.ptPaused) this.startPt();
+  }
+
+  startPt() {
+    clearInterval(this.ptTimer);
+    this.ptTimer = setInterval(() => {
+      this.setState((s) => ({ ptStep: (s.ptStep + 1) % PROFILE_TYPE_STEPS.length }));
+    }, 3600);
+  }
+
+  goToTa(i) {
+    clearInterval(this.taTimer);
+    this.setState({ taStep: i });
+    if (!this.taPaused) this.startTa();
+  }
+
+  startTa() {
+    clearInterval(this.taTimer);
+    this.taTimer = setInterval(() => {
+      this.setState((s) => ({ taStep: (s.taStep + 1) % TRANSFORM_STEPS.length }));
+    }, 3600);
+  }
+
+  constructor(props) {
+    super(props);
+    this.navRef = React.createRef();
+    this.dbScrollRef = React.createRef();
+    this.taRef = React.createRef();
+    this.ptRef = React.createRef();
+    this.apRef = React.createRef();
+  }
+
+  pauseOnHover(ref, onEnter, onLeave) {
+    const el = ref.current;
+    if (!el || el.dataset.hoverBound) return;
+    el.dataset.hoverBound = "1";
+    el.addEventListener("mouseenter", onEnter);
+    el.addEventListener("mouseleave", onLeave);
+  }
+
+  applyLayout() {
+    const w = this.props.contentWidth ?? 720;
+    document.documentElement.style.setProperty("--tms-col", w + "px");
+  }
+
+  startDbScroll() {
+    const el = this.dbScrollRef.current;
+    if (!el) return;
+    let dir = 1;
+    let paused = false;
+    el.addEventListener("mouseenter", () => { paused = true; });
+    el.addEventListener("mouseleave", () => { paused = false; });
+    el.addEventListener("pointerdown", () => { paused = true; });
+    this.dbTimer = setInterval(() => {
+      const max = el.scrollWidth - el.clientWidth;
+      if (paused || max <= 0) return;
+      if (el.scrollLeft >= max - 1) dir = -1;
+      if (el.scrollLeft <= 0) dir = 1;
+      const sp = this.props.dbScrollSpeed ?? 1.6;
+      if (sp <= 0) return;
+      el.scrollLeft += dir * sp;
+    }, 16);
+  }
+
+  componentDidMount() {
+    this.onScroll = () => {
+      const n = this.navRef.current;
+      if (!n) return;
+      const on = window.scrollY > 40;
+      n.style.background = on ? "linear-gradient(165deg,rgba(241,245,238,0.9) 0%,rgba(228,237,224,0.9) 55%,rgba(208,224,201,0.9) 100%)" : "transparent";
+      n.style.backdropFilter = on ? "blur(12px)" : "none";
+      n.style.borderBottomColor = on ? "rgba(26,23,20,0.1)" : "transparent";
+    };
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    this.onScroll();
+
+    const reveal = (el) => {
+      el.style.opacity = "1";
+      el.style.transform = "none";
+      el.dataset.fadeDone = "1";
+    };
+    this.check = () => {
+      const vh = window.innerHeight || 800;
+      document.querySelectorAll("[data-fade]").forEach((el) => {
+        if (el.dataset.fadeDone) return;
+        const r = el.getBoundingClientRect();
+        if (r.top < vh - 40 && r.bottom > 0) reveal(el);
+      });
+    };
+    this.onAnyScroll = () => {
+      if (this.rafId) return;
+      this.rafId = requestAnimationFrame(() => { this.rafId = null; this.check(); });
+    };
+    window.addEventListener("scroll", this.onAnyScroll, { passive: true, capture: true });
+    document.addEventListener("scroll", this.onAnyScroll, { passive: true, capture: true });
+    window.addEventListener("resize", this.onAnyScroll, { passive: true });
+    this.check();
+    this.checkTimer = setInterval(this.check, 300);
+    setTimeout(() => this.startDbScroll(), 400);
+    this.applyLayout();
+    this.startApproval();
+    this.startPt();
+    this.startTa();
+
+    this.apPaused = false;
+    this.ptPaused = false;
+    this.taPaused = false;
+    setTimeout(() => {
+      this.pauseOnHover(this.apRef, () => { this.apPaused = true; clearInterval(this.approvalTimer); }, () => { this.apPaused = false; this.startApproval(); });
+      this.pauseOnHover(this.ptRef, () => { this.ptPaused = true; clearInterval(this.ptTimer); }, () => { this.ptPaused = false; this.startPt(); });
+      this.pauseOnHover(this.taRef, () => { this.taPaused = true; clearInterval(this.taTimer); }, () => { this.taPaused = false; this.startTa(); });
+    }, 400);
+    this.fallbackTimer = setTimeout(() => {
+      clearInterval(this.checkTimer);
+      document.querySelectorAll("[data-fade]").forEach(reveal);
+    }, 2500);
+  }
+
+  componentDidUpdate() {
+    this.applyLayout();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.checkTimer);
+    clearInterval(this.dbTimer);
+    clearInterval(this.approvalTimer);
+    clearInterval(this.ptTimer);
+    clearInterval(this.taTimer);
+    clearTimeout(this.fallbackTimer);
+    window.removeEventListener("scroll", this.onScroll);
+    window.removeEventListener("scroll", this.onAnyScroll, { capture: true });
+    document.removeEventListener("scroll", this.onAnyScroll, { capture: true });
+    window.removeEventListener("resize", this.onAnyScroll);
+  }
+
+  renderVals() {
+    const openQ = this.state.openQ;
+    const openD = this.state.openD;
+    const ap = this.state.approvalStep;
+    const approvalVals = {
+      approvalStepNo: ap + 1,
+      approvalStepTitle: APPROVAL_STEPS[ap].title,
+    };
+    for (let n = 0; n < 3; n++) {
+      approvalVals["ap" + (n + 1)] = n === ap ? 1 : 0;
+      approvalVals["asc" + (n + 1)] = n === ap ? 1 : 1.03;
+      approvalVals["apr" + (n + 1)] = n <= ap ? 1 : 0;
+      approvalVals["apbg" + (n + 1)] = n === ap ? "#4C6B4F" : "transparent";
+      approvalVals["apfg" + (n + 1)] = n === ap ? "#ffffff" : "#7A7469";
+      approvalVals["approvalGo" + (n + 1)] = ((k) => () => this.goToApproval(k))(n);
+    }
+    const pt = this.state.ptStep;
+    approvalVals.ptStepNo = pt + 1;
+    approvalVals.ptStepTitle = PROFILE_TYPE_STEPS[pt].title;
+    approvalVals.ptStepDesc = PROFILE_TYPE_STEPS[pt].desc;
+    for (let n = 0; n < 3; n++) {
+      approvalVals["pt" + (n + 1)] = n === pt ? 1 : 0;
+      approvalVals["ptsc" + (n + 1)] = n === pt ? 1 : 1.03;
+      approvalVals["ptr" + (n + 1)] = n <= pt ? 1 : 0;
+      approvalVals["ptbg" + (n + 1)] = n === pt ? "#4C6B4F" : "transparent";
+      approvalVals["ptfg" + (n + 1)] = n === pt ? "#ffffff" : "#7A7469";
+      approvalVals["ptGo" + (n + 1)] = ((k) => () => this.goToPt(k))(n);
+    }
+    const ta = this.state.taStep;
+    approvalVals.taStepNo = ta + 1;
+    approvalVals.taStepTitle = TRANSFORM_STEPS[ta].title;
+    approvalVals.taStepItems = TRANSFORM_STEPS[ta].items;
+    for (let n = 0; n < 2; n++) {
+      approvalVals["ta" + (n + 1)] = n === ta ? 1 : 0;
+      approvalVals["tasc" + (n + 1)] = n === ta ? 1 : 1.03;
+      approvalVals["tar" + (n + 1)] = n <= ta ? 1 : 0;
+      approvalVals["tabg" + (n + 1)] = n === ta ? "#4C6B4F" : "transparent";
+      approvalVals["tafg" + (n + 1)] = n === ta ? "#ffffff" : "#7A7469";
+      approvalVals["taGo" + (n + 1)] = ((k) => () => this.goToTa(k))(n);
+    }
+    return Object.assign(approvalVals, {
+      navRef: this.navRef,
+      mobileMenuOpen: this.state.mobileMenuOpen,
+      toggleMenu: this.toggleMenu,
+      closeMenu: this.closeMenu,
+      dbScrollRef: this.dbScrollRef,
+      taRef: this.taRef,
+      ptRef: this.ptRef,
+      apRef: this.apRef,
+      teams: TEAMS,
+      observations: OBSERVATIONS,
+      tiers: TIERS,
+      flow: FLOW,
+      metrics: METRICS,
+      questionGroups: QUESTION_GROUPS.map((g, i) => ({
+        label: g.label,
+        items: g.items,
+        sign: openQ === i ? "–" : "+",
+        display: openQ === i ? "block" : "none",
+        toggle: () => this.setState({ openQ: openQ === i ? -1 : i }),
+      })),
+      details: DETAILS.map((d, i) => ({
+        q: d.q,
+        a: d.a,
+        img: d.img || null,
+        sign: openD === i ? "–" : "+",
+        display: openD === i ? "block" : "none",
+        toggle: () => this.setState({ openD: openD === i ? -1 : i }),
+      })),
+    });
+  }
+}
+
+</script>
+</body>
+</html>
