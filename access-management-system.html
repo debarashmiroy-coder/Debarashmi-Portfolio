@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@400;500;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  html { min-height: 100%; }
+  body { margin: 0; padding: 0; color: #1A1714; background: linear-gradient(165deg,#F1F5EE 0%,#E4EDE0 55%,#D0E0C9 100%) fixed; background-attachment: fixed; }
+  * { box-sizing: border-box; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: #4C6B4F; }
+  @keyframes glitch-a {
+    0%, 86% { opacity: 0; clip-path: inset(0 0 100% 0); transform: translateX(0); }
+    87% { opacity: .85; clip-path: inset(0 0 95% 0); transform: translateX(-3px); }
+    90% { opacity: .85; clip-path: inset(30% 0 50% 0); transform: translateX(3px); }
+    93% { opacity: .85; clip-path: inset(70% 0 10% 0); transform: translateX(-2px); }
+    96% { opacity: .85; clip-path: inset(10% 0 80% 0); transform: translateX(2px); }
+    99% { opacity: .85; clip-path: inset(50% 0 30% 0); transform: translateX(-3px); }
+    100% { opacity: 0; }
+  }
+  @keyframes glitch-b {
+    0%, 86% { opacity: 0; clip-path: inset(80% 0 5% 0); transform: translateX(0); }
+    87% { opacity: .85; clip-path: inset(80% 0 5% 0); transform: translateX(3px); }
+    90% { opacity: .85; clip-path: inset(10% 0 70% 0); transform: translateX(-3px); }
+    93% { opacity: .85; clip-path: inset(50% 0 20% 0); transform: translateX(2px); }
+    96% { opacity: .85; clip-path: inset(20% 0 60% 0); transform: translateX(-2px); }
+    99% { opacity: .85; clip-path: inset(65% 0 15% 0); transform: translateX(3px); }
+    100% { opacity: 0; }
+  }
+  .nav-kebab { display: none; }
+  @media (max-width: 768px) {
+    .nav-links { display: none !important; }
+    .nav-kebab { display: flex !important; }
+    .footer-nav-section { display: none !important; }
+  }
+</style>
+</helmet>
+
+<div style="background:transparent;min-height:100vh;font-family:'DM Sans',sans-serif;overflow-x:hidden">
+
+  <nav ref="{{ navRef }}" style="position:fixed;top:0;left:0;right:0;z-index:40;padding:16px clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid transparent;transition:background-color .25s ease,border-color .25s ease">
+    <a href="index.html" data-hover="" style="display:flex;align-items:baseline;gap:8px">
+      <span style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:18px;color:#1A1714">debarashmi's portfolio</span>
+      <span style="font-family:'DM Sans',sans-serif;font-size:10px;color:#7A7469;text-transform:uppercase;letter-spacing:.16em">/ Designer</span>
+    </a>
+    <ul class="nav-links" style="display:flex;gap:32px;align-items:center;list-style:none;margin:0;padding:0">
+      <li><a href="index.html#about" style="font-size:14px;color:#1A1714" data-hover="">About</a></li>
+      <li><a href="index.html#work" style="font-size:14px;color:#1A1714" data-hover="">Work</a></li>
+      <li><a href="index.html#testimonials" style="font-size:14px;color:#1A1714" data-hover="">Praise</a></li>
+      <li><a href="resume.html" style="font-size:14px;color:#1A1714" data-hover="">Resume</a></li>
+      <li><a href="index.html#contact" style="font-size:14px;color:#1A1714" data-hover="">Contact</a></li>
+    </ul>
+    <button type="button" class="nav-kebab" onClick="{{ toggleMenu }}" aria-label="Menu" style="align-items:center;justify-content:center;width:36px;height:36px;background:transparent;border:1px solid rgba(26,23,20,0.15);cursor:pointer">
+      <span style="font-size:20px;line-height:1;color:#1A1714">⋮</span>
+    </button>
+  </nav>
+  <sc-if value="{{ mobileMenuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;top:57px;left:0;right:0;z-index:39;background:#F1F5EE;border-bottom:1px solid rgba(26,23,20,0.15);display:flex;flex-direction:column;padding:8px clamp(20px,4vw,48px) 16px">
+      <a href="index.html#about" onClick="{{ closeMenu }}" style="padding:12px 0;font-size:15px;color:#1A1714;border-bottom:1px solid rgba(26,23,20,0.08)" data-hover="">About</a>
+      <a href="index.html#work" onClick="{{ closeMenu }}" style="padding:12px 0;font-size:15px;color:#1A1714;border-bottom:1px solid rgba(26,23,20,0.08)" data-hover="">Work</a>
+      <a href="index.html#testimonials" onClick="{{ closeMenu }}" style="padding:12px 0;font-size:15px;color:#1A1714;border-bottom:1px solid rgba(26,23,20,0.08)" data-hover="">Praise</a>
+      <a href="resume.html" onClick="{{ closeMenu }}" style="padding:12px 0;font-size:15px;color:#1A1714;border-bottom:1px solid rgba(26,23,20,0.08)" data-hover="">Resume</a>
+      <a href="index.html#contact" onClick="{{ closeMenu }}" style="padding:12px 0;font-size:15px;color:#1A1714" data-hover="">Contact</a>
+    </div>
+  </sc-if>
+
+  <section style="position:relative;padding:clamp(160px,24vh,240px) clamp(20px,4vw,48px) 80px;border-bottom:1px solid rgba(26,23,20,0.15);overflow:hidden">
+    <div style="position:absolute;right:0;top:0;user-select:none;pointer-events:none;color:rgba(26,23,20,0.05);font-weight:700">
+      <span data-text="নিয়ন্ত্রণ" style="position:relative;display:block;font-family:'Hind Siliguri',sans-serif;font-size:14vw;line-height:1" style-before="content:attr(data-text);position:absolute;inset:0;color:#4C6B4F;opacity:0;white-space:pre;animation:glitch-a 4.6s steps(1) infinite" style-after="content:attr(data-text);position:absolute;inset:0;color:#2A5EA6;opacity:0;white-space:pre;animation:glitch-b 4.6s steps(1) infinite">নিয়ন্ত্রণ</span>
+    </div>
+    <div style="position:relative;z-index:2;max-width:720px;margin:0 auto">
+      <span style="font-family:'DM Sans',sans-serif;font-size:12px;color:#7A7469;text-transform:uppercase;letter-spacing:.16em;display:block;margin-bottom:20px">doselect (Naukri ecosystem) // Role Based Access Control</span>
+      <h1 style="font-family:'Arima Madurai',cursive;font-weight:900;font-size:clamp(40px,7.4vw,78px);line-height:.95;color:#1A1714;margin:0 0 8px">doselect access management system<span style="color:#4C6B4F">.</span></h1>
+      <span style="display:inline-flex;flex-direction:column;gap:.25em;line-height:1;font-size:18px;color:rgba(122,116,105,.85);margin-bottom:24px">
+        <span data-text="প্রবেশাধিকার ব্যবস্থাপনা" style="position:relative;display:inline-block;font-family:'Hind Siliguri',sans-serif" style-before="content:attr(data-text);position:absolute;inset:0;color:#4C6B4F;opacity:0;white-space:pre;animation:glitch-a 4.2s steps(1) infinite" style-after="content:attr(data-text);position:absolute;inset:0;color:#2A5EA6;opacity:0;white-space:pre;animation:glitch-b 4.2s steps(1) infinite">প্রবেশাধিকার ব্যবস্থাপনা</span>
+        <span style="font-size:.5em;letter-spacing:.18em;text-transform:uppercase;opacity:.6">Access Management</span>
+      </span>
+      <p style="font-size:clamp(20px,2.6vw,26px);line-height:1.3;color:#4C6B4F;font-weight:500;margin:16px 0 0">From "Everyone is an Admin" to Enterprise-Ready Control</p>
+      <div style="display:flex;flex-wrap:wrap;gap:24px;margin-top:32px;padding-top:32px;border-top:1px solid rgba(26,23,20,0.15)">
+        <div><p style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7A7469;margin:0 0 2px">Role</p><p style="font-size:14px;font-weight:500;color:#1A1714;margin:0">Lead UX Designer</p></div>
+        <div><p style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7A7469;margin:0 0 2px">Company</p><p style="font-size:14px;font-weight:500;color:#1A1714;margin:0">Naukri.com / Doselect</p></div>
+        <div><p style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7A7469;margin:0 0 2px">Scope</p><p style="font-size:14px;font-weight:500;color:#1A1714;margin:0">RBAC · Enterprise SaaS</p></div>
+        <div><p style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7A7469;margin:0 0 2px">Scale</p><p style="font-size:14px;font-weight:500;color:#1A1714;margin:0">3,000+ organisations</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="position:relative;padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px);overflow:hidden">
+    <div style="position:absolute;left:0;bottom:0;user-select:none;pointer-events:none;color:rgba(26,23,20,0.045);font-weight:700">
+      <span data-text="সমস্যা" style="position:relative;display:block;font-family:'Hind Siliguri',sans-serif;font-size:18vw;line-height:1" style-before="content:attr(data-text);position:absolute;inset:0;color:#4C6B4F;opacity:0;white-space:pre;animation:glitch-a 4.8s steps(1) infinite" style-after="content:attr(data-text);position:absolute;inset:0;color:#2A5EA6;opacity:0;white-space:pre;animation:glitch-b 4.8s steps(1) infinite">সমস্যা</span>
+    </div>
+    <div data-fade="" style="max-width:720px;margin:0 auto;position:relative;z-index:2;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(30px,4.6vw,52px);color:#1A1714;line-height:1.15;margin:0">the problem<span style="color:#4C6B4F">.</span></h2>
+      <span style="display:inline-flex;flex-direction:column;gap:.25em;line-height:1;font-size:14px;color:rgba(122,116,105,.7);margin:8px 0 4px"><span style="font-family:'Hind Siliguri',sans-serif">সমস্যা</span><span style="font-size:.7em;letter-spacing:.18em;text-transform:uppercase;opacity:.7">the problem</span></span>
+      <p style="font-family:'Arima Madurai',cursive;font-style:italic;font-size:clamp(20px,2.6vw,26px);color:#4C6B4F;line-height:1.35;margin:20px 0 0">"When Everyone Has Power, No One Has Control"</p>
+      <div style="margin-top:24px;font-size:17px;color:#7A7469;line-height:1.75;display:flex;flex-direction:column;gap:16px">
+        <p style="margin:0">DoSelect serves <strong style="font-weight:600;color:#1A1714">3,000+ organizations</strong> with rapidly scaling teams and increasingly complex internal structures. But beneath the surface, a critical flaw existed:</p>
+        <p style="margin:0;font-weight:600;color:#1A1714">Every user inside a company account had the same access level.</p>
+        <p style="margin:0">This meant admins couldn't delegate responsibilities without risking overexposure, data leaks, or accidental misuse. As organizations grew — adding recruiters, hiring managers, L&amp;D teams, and ops users — the lack of access control became more than a usability issue. It became a security liability.</p>
+        <p style="margin:0">Across products like Assessments, Interviews, Contests, and Speech Sense, the platform couldn't reliably answer a basic enterprise question:</p>
+        <p style="margin:0;font-family:'Arima Madurai',cursive;font-style:italic;font-size:20px;color:#1A1714">"Who can see what — and who can do what?"</p>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px);background:#1A1714;color:#FFFFFF">
+    <div data-fade="" style="max-width:720px;margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(28px,4.2vw,46px);line-height:1.15;margin:0">why this mattered, beyond UX<span style="color:#4C6B4F">.</span></h2>
+      <span style="display:inline-flex;flex-direction:column;gap:.25em;line-height:1;font-size:14px;color:rgba(255,255,255,.4);margin:8px 0 24px"><span style="font-family:'Hind Siliguri',sans-serif">ব্যবসায়িক প্রভাব</span><span style="font-size:.7em;letter-spacing:.18em;text-transform:uppercase">business impact</span></span>
+      <div style="font-size:16px;color:rgba(255,255,255,.7);line-height:1.75;display:flex;flex-direction:column;gap:16px">
+        <p style="margin:0">From a business standpoint, the impact was immediate and measurable.</p>
+        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px">
+          <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>"Everyone is an admin" failed security reviews for mid-to-large enterprises</span></li>
+          <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>RBAC became a hard blocker for upsells and renewals</span></li>
+          <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Enterprise buyers expected role-based control as table stakes, not a feature request</span></li>
+        </ul>
+        <p style="font-family:'Arima Madurai',cursive;font-style:italic;font-size:clamp(19px,2.4vw,24px);color:#FFFFFF;line-height:1.4;margin:16px 0 0">"This wasn't about adding permissions. This was about unlocking enterprise adoption."</p>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="position:relative;padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px);overflow:hidden">
+    <div style="position:absolute;left:0;bottom:0;user-select:none;pointer-events:none;color:rgba(26,23,20,0.045);font-weight:700">
+      <span data-text="গবেষণা" style="position:relative;display:block;font-family:'Hind Siliguri',sans-serif;font-size:16vw;line-height:1" style-before="content:attr(data-text);position:absolute;inset:0;color:#4C6B4F;opacity:0;white-space:pre;animation:glitch-a 5s steps(1) infinite" style-after="content:attr(data-text);position:absolute;inset:0;color:#2A5EA6;opacity:0;white-space:pre;animation:glitch-b 5s steps(1) infinite">গবেষণা</span>
+    </div>
+    <div data-fade="" style="max-width:720px;margin:0 auto;position:relative;z-index:2;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(28px,4.2vw,46px);color:#1A1714;line-height:1.15;margin:0">research &amp; discovery: looking beyond roles and permissions<span style="color:#4C6B4F">.</span></h2>
+      <span style="display:inline-flex;flex-direction:column;gap:.25em;line-height:1;font-size:14px;color:rgba(122,116,105,.7);margin:8px 0 4px"><span style="font-family:'Hind Siliguri',sans-serif">অনুসন্ধান</span><span style="font-size:.7em;letter-spacing:.18em;text-transform:uppercase;opacity:.7">discovery</span></span>
+      <div style="margin-top:32px;display:flex;flex-direction:column;gap:24px">
+        <div style="border:1px solid rgba(26,23,20,0.15);background:rgba(255,255,255,.55);padding:24px">
+          <p style="font-family:'Arima Madurai',cursive;font-weight:600;font-size:17px;color:#4C6B4F;margin:0 0 12px">grounded in real signals, not assumptions.</p>
+          <p style="font-size:15px;color:#7A7469;line-height:1.7;margin:0 0 12px">Inputs used:</p>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:15px;color:#7A7469;line-height:1.7">
+            <li>Internal product usage data</li>
+            <li>Conversations with recruiters and company admins</li>
+            <li>Support tickets related to access confusion and errors</li>
+          </ul>
+        </div>
+        <div style="background:#1A1714;color:#FFFFFF;padding:28px">
+          <p style="font-family:'Arima Madurai',cursive;font-weight:600;font-size:17px;margin:0 0 12px">key insights that shaped the system.</p>
+          <p style="font-size:15px;line-height:1.7;margin:0 0 12px;color:rgba(255,255,255,.85)">What started as a permissions problem quickly revealed adjacent design opportunities.</p>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:15px;line-height:1.7;color:rgba(255,255,255,.85)">
+            <li>Not all users are equal — but the product treated them as such</li>
+            <li>Admins think in roles, not individual permissions</li>
+            <li>Over-granular controls increase confusion and setup time</li>
+            <li>Backward compatibility was non-negotiable</li>
+            <li>Most companies don't need team-level controls on day one</li>
+            <li>Role creation and user invitation must stay simple — even with complex products</li>
+          </ul>
+        </div>
+      </div>
+      <p style="font-family:'Arima Madurai',cursive;font-style:italic;font-size:clamp(19px,2.4vw,24px);color:#4C6B4F;line-height:1.4;margin:24px 0 0">"The insight was clear: power needs structure, not complexity."</p>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px)">
+    <div data-fade="" style="max-width:720px;margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(28px,4.2vw,46px);color:#1A1714;line-height:1.15;margin:0">design approach: enterprise-grade MVP<span style="color:#4C6B4F">.</span></h2>
+      <div style="margin-top:32px;font-size:16px;color:#7A7469;line-height:1.75;display:flex;flex-direction:column;gap:16px">
+        <p style="margin:0">We designed an <strong style="font-weight:600;color:#1A1714">RBAC (Role-Based Access Control)</strong> system that balanced security, usability, and scale.</p>
+        <p style="margin:0">Core principles:</p>
+        <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px">
+          <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span><strong style="font-weight:600;color:#1A1714">Least privilege by default</strong> — no one gets more access than needed</span></li>
+          <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Standardized privilege groups across products</span></li>
+          <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Auditable user actions through activity logs</span></li>
+          <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Backward-compatible with existing customers</span></li>
+          <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Future-ready for teams and geo-based controls — without shipping that complexity in MVP</span></li>
+        </ul>
+        <p style="font-family:'Arima Madurai',cursive;font-style:italic;font-size:clamp(19px,2.4vw,24px);color:#4C6B4F;line-height:1.4;margin:8px 0 0">"Design for tomorrow, ship for today!"</p>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="position:relative;padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px);overflow:hidden">
+    <div style="position:absolute;right:0;bottom:0;user-select:none;pointer-events:none;color:rgba(26,23,20,0.045);font-weight:700">
+      <span data-text="কাঠামো" style="position:relative;display:block;font-family:'Hind Siliguri',sans-serif;font-size:16vw;line-height:1" style-before="content:attr(data-text);position:absolute;inset:0;color:#4C6B4F;opacity:0;white-space:pre;animation:glitch-a 4.4s steps(1) infinite" style-after="content:attr(data-text);position:absolute;inset:0;color:#2A5EA6;opacity:0;white-space:pre;animation:glitch-b 4.4s steps(1) infinite">কাঠামো</span>
+    </div>
+    <div data-fade="" style="max-width:720px;margin:0 auto;position:relative;z-index:2;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(28px,4.2vw,46px);color:#1A1714;line-height:1.15;margin:0">system design: how RBAC was structured<span style="color:#4C6B4F">.</span></h2>
+      <p style="font-size:16px;color:#7A7469;line-height:1.75;margin:24px 0 0">RBAC was modeled around how DoSelect is already purchased and used, not theoretical org charts. Core entities:</p>
+      <div style="margin-top:24px;border:1px solid rgba(26,23,20,0.15)">
+        <div style="padding:18px 20px;border-bottom:1px solid rgba(26,23,20,0.15);display:flex;flex-wrap:wrap;gap:4px 16px"><span style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#4C6B4F;width:150px">Company Account</span><span style="font-size:15px;color:#7A7469;flex:1;min-width:200px">Unique organization inside DoSelect</span></div>
+        <div style="padding:18px 20px;border-bottom:1px solid rgba(26,23,20,0.15);display:flex;flex-wrap:wrap;gap:4px 16px"><span style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#4C6B4F;width:150px">Product</span><span style="font-size:15px;color:#7A7469;flex:1;min-width:200px">Purchased modules — Assessments, Interviews, Contests, Speech Sense</span></div>
+        <div style="padding:18px 20px;border-bottom:1px solid rgba(26,23,20,0.15);display:flex;flex-wrap:wrap;gap:4px 16px"><span style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#4C6B4F;width:150px">User</span><span style="font-size:15px;color:#7A7469;flex:1;min-width:200px">Individual account within a company</span></div>
+        <div style="padding:18px 20px;border-bottom:1px solid rgba(26,23,20,0.15);display:flex;flex-wrap:wrap;gap:4px 16px"><span style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#4C6B4F;width:150px">Privilege</span><span style="font-size:15px;color:#7A7469;flex:1;min-width:200px">Granular action — e.g. Create Assessment, View Reports</span></div>
+        <div style="padding:18px 20px;border-bottom:1px solid rgba(26,23,20,0.15);display:flex;flex-wrap:wrap;gap:4px 16px"><span style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#4C6B4F;width:150px">Privilege Group</span><span style="font-size:15px;color:#7A7469;flex:1;min-width:200px">Logical buckets of privileges — e.g. Reporting Management</span></div>
+        <div style="padding:18px 20px;display:flex;flex-wrap:wrap;gap:4px 16px"><span style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:#4C6B4F;width:150px">Access Level</span><span style="font-size:15px;color:#7A7469;flex:1;min-width:200px">No View / View Only / Edit</span></div>
+      </div>
+      <p style="font-family:'Arima Madurai',cursive;font-style:italic;font-size:clamp(19px,2.4vw,24px);color:#4C6B4F;line-height:1.4;margin:24px 0 0">"Pages remain visible. Actions are disabled. Tooltips explain why. Restriction without confusion."</p>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px)">
+    <div data-fade="" style="max-width:720px;margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(28px,4.2vw,46px);color:#1A1714;line-height:1.15;margin:0">key user flows<span style="color:#4C6B4F">.</span></h2>
+      <div style="margin-top:32px;display:flex;flex-direction:column;gap:32px">
+        <div>
+          <p style="font-family:'Arima Madurai',cursive;font-weight:600;font-size:18px;color:#4C6B4F;margin:0 0 12px">role creation &amp; management.</p>
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;font-size:15px;color:#7A7469;line-height:1.7">
+            <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Admin creates a role</span></li>
+            <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Selects company-enabled products</span></li>
+            <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Assigns privilege groups with access levels</span></li>
+            <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Changes propagate automatically to all users in that role</span></li>
+          </ul>
+          <div style="margin-top:20px;border:1px solid rgba(26,23,20,0.15);border-radius:16px;overflow:hidden;background:#000">
+            <video src="assets/rbac-role-creation.mp4" style="display:block;width:100%" autoplay="{{ yes }}" muted="{{ yes }}" loop="{{ yes }}" playsinline="{{ yes }}"></video>
+          </div>
+        </div>
+        <div>
+          <p style="font-family:'Arima Madurai',cursive;font-weight:600;font-size:18px;color:#4C6B4F;margin:0 0 12px">user invitation &amp; lifecycle.</p>
+          <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;font-size:15px;color:#7A7469;line-height:1.7">
+            <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Admin invites users and assigns roles</span></li>
+            <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Users remain pending until onboarding</span></li>
+            <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Invitations can be resent or revoked</span></li>
+            <li style="display:flex;gap:12px"><span style="color:#4C6B4F;font-size:10px;margin-top:6px;flex-shrink:0">▸</span><span>Users can be activated or deactivated without data loss</span></li>
+          </ul>
+          <div style="margin-top:20px;border:1px solid rgba(26,23,20,0.15);border-radius:16px;overflow:hidden;background:#000">
+            <video src="assets/rbac-user-invitation.mp4" style="display:block;width:100%" autoplay="{{ yes }}" muted="{{ yes }}" loop="{{ yes }}" playsinline="{{ yes }}"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px)">
+    <div data-fade="" style="max-width:720px;margin:0 auto;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(28px,4.2vw,46px);color:#1A1714;line-height:1.15;margin:0">backward compatibility: zero disruption, full control<span style="color:#4C6B4F">.</span></h2>
+      <div style="margin-top:24px;font-size:16px;color:#7A7469;line-height:1.75;display:flex;flex-direction:column;gap:16px">
+        <p style="margin:0">Rolling out RBAC to thousands of active customers required precision. We ensured:</p>
+        <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px">
+          <li>Existing users retained maximum access by default</li>
+          <li>Inactive users stayed inactive</li>
+          <li>No workflows broke post-launch</li>
+          <li>New users required explicit role assignment</li>
+        </ul>
+        <p style="font-family:'Arima Madurai',cursive;font-style:italic;font-size:clamp(18px,2.2vw,22px);color:#4C6B4F;line-height:1.4;margin:8px 0 0">"We paired the rollout with clear email communication to guide adoption without friction."</p>
+      </div>
+    </div>
+  </section>
+
+  <div style="border-bottom:1px solid rgba(26,23,20,0.15)"></div>
+
+  <section style="position:relative;padding:clamp(64px,10vh,112px) clamp(20px,4vw,48px);background:#1A1714;color:#FFFFFF;overflow:hidden">
+    <div style="position:absolute;right:0;bottom:0;user-select:none;pointer-events:none;color:rgba(255,255,255,0.05);font-weight:700">
+      <span data-text="প্রভাব" style="position:relative;display:block;font-family:'Hind Siliguri',sans-serif;font-size:16vw;line-height:1" style-before="content:attr(data-text);position:absolute;inset:0;color:#4C6B4F;opacity:0;white-space:pre;animation:glitch-a 4.3s steps(1) infinite" style-after="content:attr(data-text);position:absolute;inset:0;color:#2A5EA6;opacity:0;white-space:pre;animation:glitch-b 4.3s steps(1) infinite">প্রভাব</span>
+    </div>
+    <div data-fade="" style="max-width:720px;margin:0 auto;position:relative;z-index:2;opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)">
+      <h2 style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:clamp(28px,4.2vw,46px);line-height:1.15;margin:0">measuring success: adoption, not just enablement<span style="color:#4C6B4F">.</span></h2>
+      <div style="display:flex;flex-wrap:wrap;gap:32px;margin:32px 0">
+        <div style="border-left:1px solid rgba(255,255,255,.2);padding-left:16px">
+          <div style="font-family:'Arima Madurai',cursive;font-size:40px;font-weight:700">30%</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-top:4px">of active companies adopted RBAC</div>
+        </div>
+        <div style="border-left:1px solid rgba(255,255,255,.2);padding-left:16px">
+          <div style="font-family:'Arima Madurai',cursive;font-size:40px;font-weight:700">80+</div>
+          <div style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-top:4px">companies created 4+ custom roles</div>
+        </div>
+      </div>
+      <div style="font-size:16px;color:rgba(255,255,255,.7);line-height:1.75;display:flex;flex-direction:column;gap:16px">
+        <p style="margin:0">To measure real-world impact, we focused on behavioral adoption, not just feature enablement. During the MVP phase, 30% of active companies adopted RBAC workflows — actively assigning roles, restricting access, and managing users with intent. More importantly, 80+ companies created four or more custom roles, signaling trust in the system and confidence in modeling their internal structures within DoSelect.</p>
+        <p style="margin:0">This shift validated strong product–market fit with low setup friction — and marked a turning point for the platform. RBAC moved DoSelect away from an "all-users-are-admins" model to a secure, scalable, enterprise-ready system, enabling teams to grow without increasing risk. Admins gained clarity and control, while the platform unlocked a foundation for future capabilities such as team-based access, attributes, and data scoping.</p>
+        <p style="font-family:'Arima Madurai',cursive;font-style:italic;font-size:clamp(19px,2.4vw,24px);color:#FFFFFF;line-height:1.4;margin:8px 0 0">"RBAC didn't just add control — it unlocked growth."</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="footer-nav-section" style="padding:64px clamp(20px,4vw,48px);border-top:1px solid rgba(26,23,20,0.15);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:32px">
+    <div>
+      <p style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7A7469;margin:0 0 12px">Back to portfolio</p>
+      <a href="index.html" data-hover="" style="display:inline-flex;align-items:center;gap:12px">
+        <span style="color:#4C6B4F;font-size:20px">←</span>
+        <span style="font-family:'Arima Madurai',cursive;font-size:24px;font-weight:700;color:#1A1714">All work</span>
+      </a>
+    </div>
+    <div style="text-align:right">
+      <p style="font-family:'DM Sans',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:#7A7469;margin:0 0 4px">Next case study</p>
+      <a href="trainer-management-system.html" data-hover="" style="display:flex;align-items:center;justify-content:flex-end;gap:8px">
+        <span style="font-family:'Arima Madurai',cursive;font-size:18px;font-weight:700;color:#1A1714">Trainer Management System</span>
+        <span style="color:#4C6B4F;font-size:15px">↗︎</span>
+      </a>
+    </div>
+  </section>
+
+  <footer style="padding:24px clamp(20px,4vw,48px);border-top:1px solid rgba(26,23,20,0.15);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px">
+    <span style="font-family:'Arima Madurai',cursive;font-weight:700;font-size:14px;color:#1A1714">Debarashmi Roy</span>
+    <div style="display:flex;align-items:center;gap:16px">
+      <span style="font-family:'DM Sans',sans-serif;font-size:10px;color:#7A7469;text-transform:uppercase;letter-spacing:.1em">Like what you see?</span>
+      <a href="mailto:debarashmiroy@gmail.com" style="font-size:13px;color:#1A1714">debarashmiroy@gmail.com</a>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.navRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.onScroll = () => {
+      const n = this.navRef.current;
+      if (!n) return;
+      const on = window.scrollY > 40;
+      n.style.background = on ? "linear-gradient(165deg,rgba(241,245,238,0.9) 0%,rgba(228,237,224,0.9) 55%,rgba(208,224,201,0.9) 100%)" : "transparent";
+      n.style.backdropFilter = on ? "blur(12px)" : "none";
+      n.style.borderBottomColor = on ? "rgba(26,23,20,0.1)" : "transparent";
+    };
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    this.onScroll();
+
+    const reveal = (el) => {
+      el.style.opacity = "1";
+      el.style.transform = "none";
+      el.dataset.fadeDone = "1";
+    };
+    this.check = () => {
+      const vh = window.innerHeight || 800;
+      document.querySelectorAll("video").forEach((v) => {
+        if (v.paused) { v.muted = true; v.loop = true; const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+      });
+      document.querySelectorAll("[data-fade]").forEach((el) => {
+        if (el.dataset.fadeDone) return;
+        const r = el.getBoundingClientRect();
+        if (r.top < vh - 40 && r.bottom > 0) reveal(el);
+      });
+    };
+    this.onAnyScroll = () => {
+      if (this.rafId) return;
+      this.rafId = requestAnimationFrame(() => { this.rafId = null; this.check(); });
+    };
+    window.addEventListener("scroll", this.onAnyScroll, { passive: true, capture: true });
+    document.addEventListener("scroll", this.onAnyScroll, { passive: true, capture: true });
+    window.addEventListener("resize", this.onAnyScroll, { passive: true });
+    this.check();
+    this.checkTimer = setInterval(this.check, 300);
+    this.primeVideos();
+    this.videoTimer = setInterval(() => this.primeVideos(), 600);
+    setTimeout(() => clearInterval(this.videoTimer), 6000);
+    this.fallbackTimer = setTimeout(() => {
+      clearInterval(this.checkTimer);
+      document.querySelectorAll("[data-fade]").forEach(reveal);
+    }, 2500);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.checkTimer);
+    clearInterval(this.videoTimer);
+    clearTimeout(this.fallbackTimer);
+    window.removeEventListener("scroll", this.onScroll);
+    window.removeEventListener("scroll", this.onAnyScroll, { capture: true });
+    document.removeEventListener("scroll", this.onAnyScroll, { capture: true });
+    window.removeEventListener("resize", this.onAnyScroll);
+  }
+
+  primeVideos() {
+    document.querySelectorAll("video").forEach((v) => {
+      v.muted = true;
+      v.loop = true;
+      v.defaultMuted = true;
+      const p = v.play();
+      if (p && p.catch) p.catch(() => {});
+    });
+  }
+
+  state = { mobileMenuOpen: false };
+  toggleMenu = () => this.setState((s) => ({ mobileMenuOpen: !s.mobileMenuOpen }));
+  closeMenu = () => this.setState({ mobileMenuOpen: false });
+
+  renderVals() {
+    return {
+      navRef: this.navRef,
+      yes: true,
+      mobileMenuOpen: this.state.mobileMenuOpen,
+      toggleMenu: this.toggleMenu,
+      closeMenu: this.closeMenu,
+    };
+  }
+}
+
+</script>
+</body>
+</html>
